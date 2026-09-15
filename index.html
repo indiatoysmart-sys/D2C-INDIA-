@@ -1,398 +1,1322 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>D2C INDIA — One Marketplace. One Community. One Database.</title>
+<title>D2C India | India's Trusted D2C Marketplace</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..900;1,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cherry: { DEFAULT: '#9B1C31', dark: '#75121F', light: '#B83B4F', 50:'#fbecef' },
+          offwhite: { DEFAULT: '#F8F5EE', dark: '#ECE6D6' }
+        },
+        fontFamily: {
+          heading: ['Poppins','sans-serif'],
+          body: ['Inter','sans-serif']
+        },
+        boxShadow: {
+          soft: '0 8px 30px rgba(117,18,31,0.15)'
+        }
+      }
+    }
+  }
+</script>
 <style>
   :root{
-    --cherry:#9B1C31;
-    --cherry-deep:#831628;
-    --cherry-soft:#B23A4F;
-    --cream:#F8F3E8;
-    --cream-dim:rgba(248,243,232,.62);
-    --cream-faint:rgba(248,243,232,.14);
-    --line:rgba(248,243,232,.16);
+    --cherry:#9B1C31; --cherry-dark:#75121F; --cherry-light:#B83B4F;
+    --offwhite:#F8F5EE; --offwhite-dark:#ECE6D6;
   }
-  *{ -webkit-tap-highlight-color:transparent; }
-  html{ scroll-behavior:smooth; }
-  body{ background:var(--cherry); color:var(--cream); font-family:'Instrument Sans',sans-serif; overflow-x:hidden; }
-  .serif{ font-family:'Fraunces',serif; }
-  .mono{ font-family:'IBM Plex Mono',monospace; }
-  ::selection{ background:var(--cream); color:var(--cherry); }
-  .card{ background:rgba(248,243,232,.06); border:1px solid var(--line); }
-  .card-solid{ background:var(--cream); color:var(--cherry); }
-  .pill{ border:1px solid var(--line); }
-  .pill.active{ background:var(--cream); color:var(--cherry); }
-  .btn-cream{ background:var(--cream); color:var(--cherry); }
-  .btn-cream:hover{ transform:translateY(-2px); }
-  .btn-ghost{ border:1px solid var(--line); }
-  .btn-ghost:hover{ background:rgba(248,243,232,.08); }
-  input,select{ font-family:inherit; }
-  input[type=text], input[type=tel], select, textarea{ background:rgba(248,243,232,.07); border:1px solid var(--line); color:var(--cream); border-radius:14px; }
-  input::placeholder{ color:var(--cream-dim); }
-  input:focus,select:focus{ outline:2px solid var(--cream); outline-offset:1px; }
-  ::-webkit-scrollbar{ width:10px; }
-  ::-webkit-scrollbar-track{ background:var(--cherry-deep); }
-  ::-webkit-scrollbar-thumb{ background:rgba(248,243,232,.25); border-radius:8px; }
-  .grain::before{ content:""; position:fixed; inset:0; pointer-events:none; opacity:.35; z-index:1;
-    background-image:radial-gradient(rgba(248,243,232,.06) 1px, transparent 1px); background-size:5px; }
-  .drawer{ transform:translateX(105%); transition:transform .45s cubic-bezier(.2,.9,.25,1); }
-  .drawer.open{ transform:translateX(0); }
-  .chip{ border:1px solid var(--line); }
-  .toast{ animation:pop .35s cubic-bezier(.2,.9,.3,1.2); }
-  @keyframes pop{ from{ transform:translateY(14px) scale(.95); opacity:0; } }
-  .marquee{ font-feature-settings:"ss01"; }
-  .serif em{ font-style:italic; }
-  a:focus-visible,button:focus-visible{ outline:2px solid var(--cream); outline-offset:2px; border-radius:6px; }
+  *{box-sizing:border-box;}
+  html,body{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif; background:var(--cherry); color:var(--offwhite); margin:0;}
+  h1,h2,h3,h4,.font-heading{font-family:'Poppins',sans-serif;}
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--cherry-light); border-radius:10px;}
+  ::-webkit-scrollbar-track{background:var(--offwhite-dark);}
+
+  .btn-primary{
+    background:var(--offwhite); color:var(--cherry); font-weight:700;
+    padding:.75rem 1.6rem; border-radius:999px; transition:all .25s ease; border:2px solid var(--offwhite);
+  }
+  .btn-primary:hover{background:transparent; color:var(--offwhite); transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,.2);}
+  .btn-cherry{
+    background:var(--cherry); color:var(--offwhite); font-weight:700;
+    padding:.7rem 1.5rem; border-radius:999px; transition:all .25s ease; border:2px solid var(--cherry);
+  }
+  .btn-cherry:hover{background:var(--cherry-dark); border-color:var(--cherry-dark); transform:translateY(-2px);}
+  .btn-outline-c{
+    background:transparent; color:var(--cherry); border:2px solid var(--cherry); font-weight:700;
+    padding:.65rem 1.4rem; border-radius:999px; transition:all .2s ease;
+  }
+  .btn-outline-c:hover{background:var(--cherry); color:var(--offwhite);}
+  .btn-ghost{background:var(--offwhite-dark); color:var(--cherry); font-weight:600; padding:.5rem 1rem; border-radius:10px; transition:.2s;}
+  .btn-ghost:hover{background:#dfd6b8;}
+  .btn-danger{background:#b91c1c; color:#fff; font-weight:600; padding:.45rem 1rem; border-radius:8px;}
+  .btn-danger:hover{background:#7f1414;}
+
+  .card{background:var(--offwhite); color:#2b1015; border-radius:18px; box-shadow:0 6px 24px rgba(0,0,0,.12);}
+  .input-field{
+    width:100%; padding:.7rem 1rem; border-radius:10px; border:1.5px solid var(--offwhite-dark);
+    background:#fff; color:#2b1015; outline:none; font-size:.95rem;
+  }
+  .input-field:focus{border-color:var(--cherry);}
+  label.field-label{font-weight:600; font-size:.82rem; color:var(--cherry-dark); margin-bottom:4px; display:block;}
+
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  .badge{font-size:.7rem; font-weight:700; padding:2px 10px; border-radius:999px; display:inline-block;}
+  .badge-pending{background:#fef3c7; color:#92400e;}
+  .badge-approved{background:#dcfce7; color:#166534;}
+  .badge-rejected{background:#fee2e2; color:#991b1b;}
+  .badge-suspended{background:#e5e7eb; color:#374151;}
+
+  .drawer{position:fixed; top:0; right:0; height:100%; width:100%; max-width:420px; background:var(--offwhite); color:#2b1015;
+    transform:translateX(100%); transition:transform .3s ease; z-index:80; box-shadow:-10px 0 30px rgba(0,0,0,.3); overflow-y:auto;}
+  .drawer.open{transform:translateX(0);}
+  .overlay-bg{position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:70; opacity:0; pointer-events:none; transition:opacity .25s;}
+  .overlay-bg.show{opacity:1; pointer-events:auto;}
+
+  .floating-sell-btn{
+    position:fixed; bottom:20px; right:20px; z-index:60; background:var(--offwhite); color:var(--cherry);
+    font-weight:700; padding:.65rem 1.1rem; border-radius:999px; font-size:.8rem; box-shadow:0 8px 24px rgba(0,0,0,.35);
+    border:2px solid var(--cherry); display:flex; align-items:center; gap:6px; animation:pulseBtn 2.4s infinite;
+  }
+  .floating-sell-btn:hover{background:var(--cherry); color:var(--offwhite);}
+  @keyframes pulseBtn{0%,100%{box-shadow:0 8px 24px rgba(0,0,0,.35);}50%{box-shadow:0 8px 30px rgba(155,28,49,.6);}}
+
+  .cat-card{transition:transform .2s ease, box-shadow .2s ease; cursor:pointer;}
+  .cat-card:hover{transform:translateY(-4px); box-shadow:0 10px 26px rgba(0,0,0,.18);}
+  .cat-card.active-cat{outline:3px solid var(--cherry-dark);}
+
+  .prod-card{transition:transform .2s ease, box-shadow .2s ease;}
+  .prod-card:hover{transform:translateY(-4px); box-shadow:0 12px 28px rgba(0,0,0,.16);}
+
+  .toast-wrap{position:fixed; top:16px; right:16px; z-index:200; display:flex; flex-direction:column; gap:10px;}
+  .toast{background:var(--offwhite); color:var(--cherry-dark); padding:12px 18px; border-radius:12px; font-weight:600;
+    box-shadow:0 8px 20px rgba(0,0,0,.25); border-left:5px solid var(--cherry); animation:slideIn .3s ease; font-size:.88rem; max-width:280px;}
+  @keyframes slideIn{from{transform:translateX(120%); opacity:0;}to{transform:translateX(0); opacity:1;}}
+
+  .city-chip{transition:all .15s ease; cursor:pointer;}
+  .city-chip:hover{background:var(--cherry); color:var(--offwhite); transform:scale(1.03);}
+
+  .sidebar-btn{display:flex; align-items:center; gap:10px; padding:.7rem 1rem; border-radius:10px; font-weight:600; cursor:pointer; transition:.15s; color:var(--offwhite);}
+  .sidebar-btn:hover, .sidebar-btn.active{background:rgba(248,245,238,.15);}
+
+  .plan-card{border:2px solid var(--offwhite-dark); transition:.2s;}
+  .plan-card:hover{border-color:var(--cherry); transform:translateY(-4px);}
+
+  table.data-table{width:100%; border-collapse:collapse; font-size:.85rem;}
+  table.data-table th{text-align:left; padding:10px 12px; background:var(--offwhite-dark); color:var(--cherry-dark); font-weight:700; position:sticky; top:0;}
+  table.data-table td{padding:10px 12px; border-bottom:1px solid var(--offwhite-dark); vertical-align:middle;}
+  table.data-table tr:hover td{background:#fffdf7;}
+
+  .scroll-x{overflow-x:auto;}
+  .fade-in{animation:fadeIn .4s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(8px);}to{opacity:1; transform:translateY(0);}}
+
+  .modal-bg{position:fixed; inset:0; background:rgba(30,5,10,.6); z-index:150; display:none; align-items:center; justify-content:center; padding:16px;}
+  .modal-bg.show{display:flex;}
+  .modal-box{background:var(--offwhite); color:#2b1015; border-radius:18px; max-width:440px; width:100%; padding:28px; box-shadow:0 20px 50px rgba(0,0,0,.4); animation:fadeIn .3s ease;}
+
+  @media (max-width:767px){
+    .dash-sidebar{position:fixed; left:0; top:0; height:100%; width:78%; max-width:280px; z-index:90; transform:translateX(-105%); transition:transform .25s ease;}
+    .dash-sidebar.open{transform:translateX(0);}
+  }
 </style>
 </head>
-<body class="grain antialiased">
-<div class="relative z-10">
+<body>
 
-<!-- Announcement -->
-<div class="mono text-[11px] tracking-[.3em] uppercase text-center px-4 py-3 border-b border-[var(--line)]">
-  One platform · One backend · One shared database — Every connected surface, live
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ===================== CITY SELECT MODAL ===================== -->
+<div class="modal-bg" id="cityModal" style="z-index:250;">
+  <div class="modal-box" style="max-width:520px;">
+    <div class="text-center mb-4">
+      <div class="text-3xl mb-1">📍</div>
+      <h2 class="text-xl font-bold font-heading" style="color:var(--cherry-dark);">Select Your City</h2>
+      <p class="text-sm opacity-70 mt-1">We deliver based on city, not pincode — choose where you're shopping from.</p>
+    </div>
+    <input type="text" id="citySearchInput" class="input-field mb-4" placeholder="Search city..." oninput="renderCityOptions(this.value)">
+    <div id="cityOptionsWrap" class="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-64 overflow-y-auto"></div>
+  </div>
 </div>
 
-<!-- Header -->
-<header class="sticky top-0 backdrop-blur-xl bg-[rgba(155,28,49,.88)] border-b border-[var(--line)] z-40">
-  <div class="max-w-6xl mx-auto flex items-center gap-3 px-4 py-4">
-    <a href="#" aria-label="D2C India home" class="serif text-lg sm:text-xl leading-none tracking-tight shrink-0">D2C<span class="italic font-light">·</span>INDIA</a>
+<!-- ===================== GENERIC MODAL (order success / confirm) ===================== -->
+<div class="modal-bg" id="genericModal">
+  <div class="modal-box" id="genericModalBody"></div>
+</div>
 
-    <!-- City selector -->
-    <div class="relative flex-1 min-w-0">
-      <div role="group" aria-label="Select your city" id="cityGroup" class="flex items-center gap-2 rounded-full border border-[var(--line)] bg-[rgba(248,243,232,.06)] px-3 py-2 overflow-x-auto">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M12 21s-7-5.1-7-11a7 7 0 1 1 14 0c0 5.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-        <span class="text-sm whitespace-nowrap text-[var(--cream-dim)] hidden sm:inline">Showing to</span>
-        <button id="cityBtn" aria-haspopup="listbox" aria-expanded="false" class="text-sm font-semibold tracking-tight whitespace-nowrap underline decoration-[6px] underline-offset-4 decoration-[var(--cream-faint)]">
-          <span id="cityLabel">New Delhi · 110001 metro catchment</span>
-        </button>
-      </div>
-      <ul id="cityMenu" role="listbox" aria-label="Cities" class="hidden absolute left-0 right-0 sm:right-auto sm:min-w-[340px] top-full mt-2 card rounded-3xl p-2 shadow-2xl z-50"></ul>
-    </div>
+<!-- ===================== CART DRAWER ===================== -->
+<div class="overlay-bg" id="cartOverlay" onclick="closeCart()"></div>
+<div class="drawer" id="cartDrawer">
+  <div class="p-5 border-b flex items-center justify-between" style="border-color:var(--offwhite-dark);">
+    <h3 class="text-lg font-bold font-heading" style="color:var(--cherry-dark);">🛒 Your Cart</h3>
+    <button onclick="closeCart()" class="text-2xl leading-none" style="color:var(--cherry);">&times;</button>
+  </div>
+  <div id="cartItemsWrap" class="p-5 flex-1"></div>
+  <div id="cartFooter" class="p-5 border-t sticky bottom-0 bg-offwhite" style="border-color:var(--offwhite-dark);"></div>
+</div>
 
-    <!-- Search -->
-    <form id="searchForm" onsubmit="return false" role="search" aria-label="Search products" class="flex-[1.4] min-w-0">
-      <div class="flex items-center rounded-full border border-[var(--line)] bg-[rgba(248,243,232,.07)] px-2 py-2">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5 ml-2 shrink-0" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="searchInput" type="search" aria-label="Search products" placeholder="Search the shared catalog…" class="w-full rounded-none border-0 bg-transparent px-2 py-1 text-sm focus:outline-none">
-      </div>
-    </form>
+<!-- ===================== FLOATING SELL BUTTON ===================== -->
+<a href="#/retailer" class="floating-sell-btn" id="sellFloatBtn">🏪 Sell Your Product on D2C India</a>
 
-    <!-- Account / Cart -->
-    <div class="flex items-center gap-2 shrink-0">
-      <a href="#auth" aria-label="Account" class="hidden sm:grid w-11 h-11 place-items-center rounded-full border border-[var(--line)]">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.4-3.2 4-4.4 7-4.4s5.6 1.2 7 4.4"/></svg>
+<!-- =========================================================== -->
+<!-- ======================= CUSTOMER SITE ===================== -->
+<!-- =========================================================== -->
+<div class="screen" id="screen-customer">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50" style="background:var(--cherry); box-shadow:0 4px 16px rgba(0,0,0,.25);">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3 flex-wrap">
+      <a href="#/" class="flex items-center gap-2 shrink-0">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl" style="background:var(--offwhite);">🛍️</div>
+        <div class="leading-tight">
+          <div class="font-heading font-extrabold text-lg" style="color:var(--offwhite);">D2C India</div>
+          <div class="text-[10px] tracking-wide opacity-80" style="color:var(--offwhite);">Direct • Trusted • Fast</div>
+        </div>
       </a>
-      <button id="cartOpen" aria-label="Open cart" class="grid w-11 h-11 place-items-center rounded-full bg-[var(--cream)] text-[var(--cherry)] btn-cream shadow-xl">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5" aria-hidden="true"><path d="M4 7h16l-1.3 12a2 2 0 0 1-2 1.8H7.3a2 2 0 0 1-2-1.8L4 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
-        <span id="cartCount" class="mono absolute -top-1 -right-1 text-[10px] grid place-items-center min-w-[20px] h-5 rounded-full bg-[var(--cherry-deep)] text-[var(--cream)] border border-[var(--line)] px-1">0</span>
+
+      <button onclick="openCityModal(false)" class="btn-ghost flex items-center gap-1 text-sm shrink-0">
+        📍 <span id="headerCityLabel">Select City</span> <span class="text-xs">▾</span>
+      </button>
+
+      <div class="flex-1 min-w-[160px]">
+        <div class="relative">
+          <input id="searchInput" oninput="onSearch(this.value)" type="text" placeholder="Search for toys, gifts, electronics..."
+            class="w-full rounded-full px-4 py-2 pl-10 text-sm outline-none" style="background:var(--offwhite); color:#2b1015;">
+          <span class="absolute left-3 top-2 opacity-60">🔍</span>
+        </div>
+      </div>
+
+      <nav class="hidden lg:flex items-center gap-4 text-sm font-semibold shrink-0" style="color:var(--offwhite);">
+        <a href="#/retailer" class="hover:underline">Become a Retailer</a>
+        <button onclick="openMyOrders()" class="hover:underline">My Orders</button>
+      </nav>
+
+      <button onclick="openCart()" class="relative btn-cherry shrink-0" style="background:var(--offwhite-dark); color:var(--cherry-dark); border-color:var(--offwhite-dark);">
+        🛒 Cart
+        <span id="cartCountBadge" class="absolute -top-2 -right-2 bg-[var(--cherry-dark)] text-white text-[11px] rounded-full w-5 h-5 flex items-center justify-center" style="background:var(--cherry-dark);">0</span>
       </button>
     </div>
-  </div>
-</header>
-
-<main class="max-w-6xl mx-auto px-4 py-8 sm:py-12 space-y-10">
+  </header>
 
   <!-- Hero -->
-  <section aria-label="Welcome" class="pt-2">
-    <h1 class="serif text-[clamp(2.3rem,6vw,4.6rem)] leading-[.95] tracking-[-0.04em]">
-      The marketplace, <em>reimagined — in one shared database.</em>
-    </h1>
-    <p class="max-w-xl text-[var(--cream-dim)] py-4">Select a city once. Browse every active, subscription-verified retailer serving that catchment. Orders, tracking, onboarding and administration all speak to the <strong class="text-[var(--cream)]">same backend</strong> — nothing disconnected.</p>
-    <div id="cityBanner" class="flex flex-wrap gap-3" role="status"></div>
+  <section class="px-4 pt-10 pb-14" style="background:linear-gradient(160deg,var(--cherry) 0%,var(--cherry-dark) 100%);">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+      <div class="fade-in">
+        <span class="badge" style="background:var(--offwhite); color:var(--cherry-dark);">🇮🇳 Made for Bharat</span>
+        <h1 class="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl mt-4 leading-tight" style="color:var(--offwhite);">
+          India's Trusted <span style="color:#F8D7DC;">D2C Marketplace</span>
+        </h1>
+        <p class="mt-4 text-base sm:text-lg opacity-90" style="color:var(--offwhite);">
+          Shop directly from verified Indian retailers — Toys, Stationery, Gifts, Clothes & Electronics — delivered fast to your city.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#products" class="btn-primary">Shop Now →</a>
+          <a href="#/retailer" class="btn-outline-c" style="border-color:var(--offwhite); color:var(--offwhite);">Sell With Us</a>
+        </div>
+        <div class="mt-8 flex gap-6 flex-wrap text-sm" style="color:var(--offwhite);">
+          <div><div class="font-heading font-bold text-xl">500+</div>Verified Retailers</div>
+          <div><div class="font-heading font-bold text-xl">10+</div>Cities Served</div>
+          <div><div class="font-heading font-bold text-xl">50k+</div>Happy Customers</div>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="card p-6 text-center rotate-[-3deg]">🧸<div class="font-bold mt-1 text-sm">Toys</div></div>
+          <div class="card p-6 text-center rotate-[3deg] mt-6">🎁<div class="font-bold mt-1 text-sm">Gifts</div></div>
+          <div class="card p-6 text-center rotate-[2deg]">👕<div class="font-bold mt-1 text-sm">Clothes</div></div>
+          <div class="card p-6 text-center rotate-[-2deg] mt-6">🔌<div class="font-bold mt-1 text-sm">Electronics</div></div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Categories + filters -->
-  <section aria-label="Categories and filters">
-    <div class="flex gap-3 overflow-x-auto pb-4 -mx-4 px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" id="catRow"></div>
-    <div class="flex flex-wrap gap-3 pt-2">
-      <button class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono" data-filter="all">Any stock · In active city</button>
-      <button class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono" data-filter="low">Low stock &lt; 8</button>
-      <button class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono" data-filter="deal">Deals under ₹1,500</button>
-      <a href="#retail" class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono grid place-items-center">Custom category builder ↓</a>
+  <!-- Categories -->
+  <section class="max-w-7xl mx-auto px-4 py-10" style="background:var(--cherry);" id="categoriesSection">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="font-heading font-bold text-2xl" style="color:var(--offwhite);">Shop by Category</h2>
+      <button onclick="clearCategoryFilter()" class="text-sm underline" style="color:var(--offwhite);">View All</button>
     </div>
+    <div id="categoriesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"></div>
   </section>
 
   <!-- Products -->
-  <section aria-label="Products">
-    <div class="flex items-end justify-between gap-4 pb-5">
-      <h2 class="serif text-2xl sm:text-3xl tracking-[-0.03em]">Live catalog — filtered by your city.</h2>
-      <span class="mono text-xs uppercase tracking-[.2em] text-[var(--cream-dim)] hidden sm:block" id="resultCount"></span>
+  <section class="max-w-7xl mx-auto px-4 py-6 pb-16" id="products" style="background:var(--cherry);">
+    <div class="flex items-center justify-between mb-5 flex-wrap gap-2">
+      <h2 class="font-heading font-bold text-2xl" style="color:var(--offwhite);" id="productsHeading">Trending Products</h2>
+      <div class="text-sm" style="color:var(--offwhite);" id="productsCount"></div>
     </div>
-    <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"></div>
-    <p id="emptyState" class="hidden text-center py-8 text-[var(--cream-dim)]">No live results in this catchment — try another city.</p>
+    <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5"></div>
   </section>
 
-  <!-- Product detail -->
-  <section aria-label="Product detail" class="card rounded-[28px] p-5 sm:p-8 grid sm:grid-cols-2 gap-6 items-start" id="productDetail">
-    <div class="rounded-[22px] overflow-hidden relative min-h-[320px] grid place-items-center border border-[var(--line)]" style="background:linear-gradient(160deg, rgba(248,243,232,.16), rgba(248,243,232,.03))">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#F8F3E8" stroke-width="1" class="w-40 h-40 opacity-80" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/><path d="M12 22V12M3 7l9 5 9-5"/></svg>
-      <span class="mono absolute top-4 left-4 text-[11px] uppercase tracking-[.3em] bg-[rgba(155,28,49,.7)] backdrop-blur px-3 py-1 rounded-full border border-[var(--line)]">Shared DB · Row #live</span>
-    </div>
-    <div>
-      <p class="mono text-xs uppercase tracking-[.3em] text-[var(--cream-dim)]">Featured · Subscription-verified · Linked Retailer #R-2041</p>
-      <h3 class="serif text-3xl sm:text-4xl tracking-[-0.03em] leading-[.95] pt-2">Papier <em>Star</em> Desk Organiser, Set of 5.</h3>
-      <p class="pt-3 text-sm text-[var(--cream-dim)] leading-7">Archival ink, FSC stock, matte cream liner. Stock is a single row in the shared database — it decrements platform-wide, never per cart.</p>
-      <dl class="grid grid-cols-3 gap-3 py-6">
-        <div class="rounded-2xl border border-[var(--line)] p-4"><dt class="mono text-[10px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Price</dt><dd class="serif text-2xl">₹1,290</dd></div>
-        <div class="rounded-2xl border border-[var(--line)] p-4"><dt class="mono text-[10px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Stock</dt><dd class="serif text-2xl">24 pcs</dd></div>
-        <div class="rounded-2xl border border-[var(--line)] p-4"><dt class="mono text-[10px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Catchment</dt><dd class="serif text-lg leading-6">Delhi + 40</dd></div>
-      </dl>
-      <div class="flex flex-wrap gap-3">
-        <button class="btn-cream rounded-full px-7 py-4 text-sm font-semibold" onclick="addToCart('Papier Star',1290)">Add to cart</button>
-        <button class="btn-ghost rounded-full px-7 py-4 text-sm" onclick="buyNow()">Buy Now →</button>
-        <a href="#checkout" class="btn-ghost rounded-full px-7 py-4 text-sm grid place-items-center">Go to secure checkout</a>
+  <!-- Footer -->
+  <footer class="px-4 py-10" style="background:var(--cherry-dark);">
+    <div class="max-w-7xl mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-8 text-sm" style="color:var(--offwhite);">
+      <div>
+        <div class="font-heading font-extrabold text-lg mb-2">D2C India 🛍️</div>
+        <p class="opacity-80">India's trusted direct-to-consumer marketplace connecting local retailers with customers nationwide.</p>
+      </div>
+      <div>
+        <div class="font-bold mb-2">Company</div>
+        <div class="opacity-80 space-y-1 flex flex-col"><a href="#/">About Us</a><a href="#/">Careers</a><a href="#/">Contact</a></div>
+      </div>
+      <div>
+        <div class="font-bold mb-2">Business</div>
+        <div class="opacity-80 space-y-1 flex flex-col">
+          <a href="#/retailer">Sell on D2C India</a>
+          <a href="#/retailer">Retailer Login</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold mb-2">Legal & Admin</div>
+        <div class="opacity-80 space-y-1 flex flex-col">
+          <a href="#/">Privacy Policy</a><a href="#/">Terms of Service</a>
+          <a href="#/admin" class="opacity-60 text-xs">🔒 Admin Login</a>
+        </div>
       </div>
     </div>
-  </section>
-
-  <!-- Auth + checkout flow -->
-  <section id="auth" aria-label="Auth and checkout" class="grid lg:grid-cols-2 gap-4">
-    <div class="card rounded-[28px] p-6 sm:p-8">
-      <h2 class="serif text-2xl tracking-[-0.03em]">Login / Signup — with 2FA + audit log.</h2>
-      <div class="grid sm:grid-cols-2 gap-3 py-6">
-        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">Email</span><input type="email" value=" Ananya.Rao@example.in " aria-label="Email" class="w-full px-4 py-4 mt-2"></label>
-        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">Password · 2FA seed ready</span><input type="password" value="••••••••" aria-label="Password" class="w-full px-4 py-4 mt-2"></label>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <button class="btn-cream rounded-full px-6 py-4 text-sm font-semibold" onclick="toast('2FA TOTP verified · session issued · audit event #A-9912 written')">Continue · OTP 6-digit</button>
-        <button class="btn-ghost rounded-full px-6 py-4 text-sm" onclick="toast('Guest checkout preserved — shared session · role=customer')">Continue as guest</button>
-      </div>
-      <p class="mono text-[11px] uppercase tracking-[.2em] text-[var(--cream-dim)] pt-5">Protected API · RBAC · Input validation · TLS 1.3 · Auth event ref 9c2f…e1a9</p>
-    </div>
-
-    <div id="checkout" class="card rounded-[28px] p-6 sm:p-8">
-      <h2 class="serif text-2xl tracking-[-0.03em]">Delivery address — PIN only here, never in browse.</h2>
-      <div class="grid sm:grid-cols-2 gap-3 py-6">
-        <label class="block sm:col-span-2"><span class="mono text-[10px] uppercase tracking-[.25em]">Full address · Ananya Rao, House 4, Lodha Greens</span><input type="text" value="42, Sector 14, Ashoka Mehra-Nagar" aria-label="Delivery address" class="w-full px-4 py-4 mt-2"></label>
-        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">City</span><select aria-label="Delivery city"><option>New Delhi</option><option>Mumbai</option><option>Bengaluru</option></select></label>
-        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">PIN code · required at checkout</span><input type="text" inputmode="numeric" maxlength="6" value="110001" aria-label="PIN code" class="w-full px-4 py-4 mt-2 mono text-center tracking-[.3em]"></label>
-      </div>
-      <div class="flex items-center justify-between gap-3 rounded-[20px] bg-[var(--cream)] text-[var(--cherry)] p-4">
-        <div><h3 class="serif text-lg leading-6">Order review · 2 items · shared cart</h3><p class="text-sm">Papier Star ₹1,290 + Merino Gift Wrap ₹240</p></div>
-        <div class="text-right"><p class="mono text-[10px] uppercase tracking-[.2em]">Total incl. GST</p><p class="serif text-3xl">₹1,530</p></div>
-      </div>
-      <button class="btn-cream w-full rounded-full py-5 text-sm font-semibold mt-4" onclick="toast('Order #D2C-55218 placed · multi-retailer split into 2 sub-orders · rider assigned publicly')">Place order · Track after placement</button>
-      <a href="#tracking" class="block text-center mono text-xs uppercase tracking-[.25em] pt-4 text-[var(--cream-dim)]">Already ordered? Track #D2C-55218 →</a>
-    </div>
-  </section>
-
-  <!-- Tracking + orders -->
-  <section id="tracking" aria-label="Order tracking" class="card rounded-[28px] p-6 sm:p-8">
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <h2 class="serif text-2xl tracking-[-0.03em]">Order #D2C-55218 — live status, rider visible to customer only.</h2>
-      <div class="mono text-xs uppercase tracking-[.2em]">Pipeline: Confirmed → Sub-order A · Retailer R-2041 · Preparing → Rider dispatched → Delivered</div>
-    </div>
-    <div class="grid sm:grid-cols-3 pt-6" role="list" aria-label="Courier tracking">
-      <article class="rounded-3xl border-y sm:border border-[var(--line)] p-5" role="listitem"><h3 class="mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Rider · public view</h3><p class="serif text-xl pt-2">Arjun M. · +91 98200 44110</p><p class="text-sm pt-1 text-[var(--cream-dim)]">Contact shown at dispatch · retailer cannot edit rider data.</p></article>
-      <article class="rounded-3xl border-y sm:border border-[var(--line)] p-5" role="listitem"><h3 class="mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Sub-order · customer-facing</h3><p class="serif text-xl pt-2">A · ₹1,290 · R-2041</p><p class="text-sm pt-1 text-[var(--cream-dim)]">Multi-retailer order stays one customer order; internals isolated.</p></article>
-      <article class="rounded-3xl border-y sm:border border-[var(--line)] p-5" role="listitem"><h3 class="mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">History · shared DB</h3><p class="serif text-xl pt-2">6 orders · ₹14,208 lifetime</p><p class="text-sm pt-1 text-[var(--cream-dim)]">Order history is one ledger across every connected surface.</p></article>
-    </div>
-  </section>
-
-  <!-- Retailer onboarding -->
-  <section id="retail" aria-label="Retailer onboarding" class="rounded-[32px] border border-[var(--line)] overflow-hidden">
-    <div class="bg-[var(--cream)] text-[var(--cherry)] p-6 sm:p-10">
-      <p class="mono text-xs uppercase tracking-[.3em]">Retailer onboarding · shared platform</p>
-      <h2 class="serif text-3xl sm:text-5xl tracking-[-0.04em] leading-[.95]">Sell Your Product on <em>D2C India.</em></h2>
-      <div class="grid md:grid-cols-3 gap-4 pt-8">
-        <article class="rounded-3xl border border-[rgba(155,28,49,.2)] p-6"><h3 class="serif text-xl pb-3">Benefits</h3><ul class="text-sm leading-7"><li>Whole catchment, one checkout</li><li>Shared inventory + order routing</li><li>Rider dispatch handled platform-side</li><li>No per-channel PIN juggling</li></ul></article>
-        <article class="rounded-3xl border border-[rgba(155,28,49,.2)] p-6"><h3 class="serif text-xl pb-3">Product management</h3><ul class="text-sm leading-7"><li>Shop · Products · Images · Descriptions</li><li>Prices · Stock · custom categories</li><li>Serviceable cities + areas, per retailer</li><li>Order status only — never D2C revenue</li></ul></article>
-        <article class="rounded-3xl bg-[var(--cherry)] text-[var(--cream)] p-6">
-          <h3 class="serif text-xl pb-1">Subscriptions · dates stored exactly</h3>
-          <button class="w-full rounded-full border border-[rgba(248,243,232,.3)] py-5 text-sm pt-5" onclick="toast('Plan held: Monthly · active → 2026-02-14 23:59 IST · auto-renew off')">₹2,000 / month<br><span class="mono text-[11px] uppercase tracking-[.2em]">Start 01 Aug 2025 → Expires 01 Sep 2025 · shared DB</span></button>
-          <button class="w-full rounded-full bg-[var(--cream)] text-[var(--cherry)] py-5 text-sm font-semibold pt-4" onclick="toast('Yearly held: ₹20,000 · Start 01 Jan 2026 → Expires 31 Dec 2026 · 12 mo')">₹20,000 / year<br><span class="mono text-[11px] uppercase tracking-[.2em]">Start 01 Jan 2026 → Expires 31 Dec 2026 · auto-renew on</span></button>
-        </article>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-4 pt-8">
-        <div class="rounded-3xl border border-[rgba(155,28,49,.2)] p-6"><h3 class="mono text-[11px] uppercase tracking-[.25em]">Requirements & compliance</h3><p class="text-sm pt-3 leading-7">GSTIN, product audit scan, 2FA, terms, serviceable-city matrix, manual partner booking acknowledgment — validated server-side before first publish.</p></div>
-        <div class="rounded-3xl bg-[var(--cherry)] text-[var(--cream)] p-6"><h3 class="mono text-[11px] uppercase tracking-[.25em]">Expiration behaviour · enforced everywhere</h3><p class="text-sm pt-3 leading-7">On expiry, retailer products auto-unpublish from the customer site and become inactive, but login + product read-only access remains. Retailers see their own account, products, images, descriptions, prices, stock, categories, cities/areas, orders and subscription only — never D2C revenue, costs, or other retailers’ data.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Retailer portal preview -->
-  <section aria-label="Retailer portal preview" class="card rounded-[28px] p-6 sm:p-8">
-    <div class="flex flex-wrap items-end justify-between gap-4 pb-6">
-      <h2 class="serif text-2xl sm:text-3xl tracking-[-0.03em]">Retailer Portal — R·2041 “Papier Star” (live preview, scoped).</h2>
-      <span class="mono text-xs uppercase tracking-[.2em]">Subscription: active · ends 01 Sep 2025 23:59 IST</span>
-    </div>
-    <div class="overflow-x-auto rounded-3xl border border-[var(--line)]">
-      <table class="w-full min-w-[760px]" aria-label="Retailer products">
-        <thead><tr class="mono text-[10px] uppercase tracking-[.2em] text-[var(--cream-dim)]"><th class="text-left px-5 py-4">Product · linked to Retailer #R-2041</th><th class="text-left px-5 py-4">Price</th><th class="text-left px-5 py-4">Stock</th><th class="text-left px-5 py-4">Categories / custom</th><th class="text-left px-5 py-4">Action</th></tr></thead>
-        <tbody class="divide-y divide-[var(--line)]" id="retailRows"></tbody>
-      </table>
-    </div>
-    <div class="flex flex-wrap gap-3 pt-6">
-      <a href="#" class="btn-cream rounded-full px-6 py-4 text-sm" onclick="event.preventDefault();toast('Sub-orders only: R·2041 sees own orders #SO-881 / #SO-902 · cannot view D2C split revenue')">Manage own Orders · sub-scoped</a>
-      <a href="#" class="btn-ghost rounded-full px-6 py-4 text-sm" onclick="event.preventDefault();toast('City matrix editor open · Delhi + 40 catchments · drag to gate visibility')">Serviceable cities/areas</a>
-      <a href="#" class="btn-ghost rounded-full px-6 py-4 text-sm" onclick="event.preventDefault();toast('Custom category builder: admin rule applied · retailer suggests, owner approves without deploy')">Create custom category</a>
-    </div>
-  </section>
-
-  <!-- Admin preview -->
-  <section aria-label="Admin panel preview" class="rounded-[28px] border border-dashed border-[var(--line)] p-6 sm:p-8 flex flex-wrap items-center justify-between gap-5">
-    <div>
-      <h2 class="serif text-2xl tracking-[-0.03em]">/admin — isolated, Owner-only, masked.</h2>
-      <p class="text-sm text-[var(--cream-dim)] max-w-md pt-2">2FA + Owner role + audit trail + backups. Sensitive info masked. Category kit: <span class="mono text-xs uppercase tracking-[.15em]">rename · replace · add · remove — Toys / Stationery / Gifts / Clothes / Electronics — no code changes</span>. Manual booking partners + D2C staff entry. Zero admin data leaks to customers or retailers.</p>
-    </div>
-    <a href="#" aria-label="Open isolated admin" onclick="event.preventDefault();toast('Admin gate: Owner login · TOTP · RBAC=owner only · masked view · audit event written')" class="btn-cream rounded-full px-8 py-5 text-sm font-semibold">Enter /admin · Owner login only</a>
-  </section>
-
-  <!-- Delivery ops strip -->
-  <section aria-label="Delivery operations" class="card rounded-[28px] p-6 sm:p-8">
-    <h2 class="serif text-xl sm:text-2xl">Delivery ops · manual by design.</h2>
-    <div class="grid sm:grid-cols-2 gap-4 pt-5">
-      <button class="btn-ghost rounded-3xl p-6 text-left" onclick="toast('Partner booking queue: manual · owner/authorized staff · partner + slot + zone')"><h3 class="mono text-[11px] uppercase tracking-[.25em]">Owner / authorized staff</h3><p class="pt-2 text-sm">Manually book delivery partners. No delivery API in v1 — kept honest and observable.</p></button>
-      <button class="btn-ghost rounded-3xl p-6 text-left" onclick="toast('D2C Staff: enter rider + delivery details · retailers have zero edit rights on rider info')"><h3 class="mono text-[11px] uppercase tracking-[.25em]">D2C Staff</h3><p class="pt-2 text-sm">Enter rider contact and delivery details. Customers see contact at dispatch; retailers cannot edit.</p></button>
-    </div>
-  </section>
-</main>
-
-<footer class="border-t border-[var(--line)] px-4 py-6 text-center mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">D2C INDIA · Backup nightly · 2FA everywhere · Audit ref live · No PIN in browse, ever.</footer>
+    <div class="text-center text-xs opacity-60 mt-8" style="color:var(--offwhite);">© 2024 D2C India. All rights reserved.</div>
+  </footer>
 </div>
 
-<!-- Corner sell button -->
-<a href="#retail" aria-label="Sell Your Product on D2C India" class="fixed bottom-4 right-4 z-50 rounded-full bg-[var(--cream)] text-[var(--cherry)] px-5 py-4 text-sm font-semibold shadow-2xl btn-cream leading-tight text-center">Sell Your Product<br class="hidden"> on D2C India →</a>
+<!-- =========================================================== -->
+<!-- ===================== RETAILER PORTAL ======================= -->
+<!-- =========================================================== -->
+<div class="screen" id="screen-retailer">
+  <div id="retailerContent"></div>
+</div>
 
-<!-- Cart drawer -->
-<div id="scrim" class="hidden fixed inset-0 bg-[rgba(60,8,17,.6)] backdrop-blur-sm z-40"></div>
-<aside id="cartDrawer" class="drawer fixed right-0 top-0 h-full w-[min(420px,100vw)] bg-[var(--cherry-deep)] border-l border-[var(--line)] z-50 p-6 overflow-y-auto" aria-label="Cart">
-  <div class="flex items-center justify-between pb-6 border-b border-[var(--line)]">
-    <h2 class="serif text-2xl">Shared cart</h2>
-    <button aria-label="Close cart" onclick="toggleCart(false)" class="w-10 h-10 grid place-items-center rounded-full border border-[var(--line)]">✕</button>
-  </div>
-  <div id="cartItems" class="space-y-3 py-6"></div>
-  <button class="btn-cream w-full rounded-full py-5 text-sm font-semibold" onclick="toggleCart(false);toast('Checkout opens with PIN only here · shared backend session intact')">Continue to delivery · PIN required</button>
-</aside>
-
-<!-- Toast -->
-<div id="toast" class="hidden fixed left-1/2 -translate-x-1/2 bottom-6 z-[60] rounded-full bg-[var(--cream)] text-[var(--cherry)] px-6 py-4 text-sm font-semibold shadow-2xl toast max-w-[92vw] text-center" role="status" aria-live="polite"></div>
+<!-- =========================================================== -->
+<!-- ======================== ADMIN PANEL ======================== -->
+<!-- =========================================================== -->
+<div class="screen" id="screen-admin">
+  <div id="adminContent"></div>
+</div>
 
 <script>
-(function(){
-  "use strict";
-  const cream='#F8F3E8';
-  // Data: shared catalog (scoped rows)
-  const products=[
-    {name:'Papier Star Desk Set',cat:'Stationery',price:1290,stock:24,city:true},
-    {name:'Monsoon Ribbon Notebook',cat:'Stationery',price:420,stock:6,city:true},
-    {name:'Sehra Toys · Wooden Ox',cat:'Toys',price:890,stock:18,city:true},
-    {name:'Cloudline Plush Stack Ring',cat:'Gifts',price:1490,stock:9,city:true},
-    {name:'Cherry Rose Silk Slip',cat:'Clothes',price:2190,stock:12,city:true},
-    {name:'Aria Buds Mini',cat:'Electronics',price:2490,stock:5,city:true},
-    {name:'Marble Counter Gift Box',cat:'Gifts',price:980,stock:15,city:true},
-    {name:'Letterpress Card, Set of 10',cat:'Stationery',price:340,stock:40,city:true},
-    {name:'Wooden Bazaar Stacker',cat:'Toys',price:640,stock:22,city:true},
-    {name:'Linen Everyday Tote',cat:'Clothes',price:1150,stock:16,city:true},
-    {name:'Magnetic desk Speaker One',cat:'Electronics',price:3290,stock:7,city:true}
-  ];
-  const fmt=n=>'₹'+n.toLocaleString('en-IN');
+/* ==========================================================================
+   D2C INDIA — SINGLE FILE DEMO APP
+   Architecture note: In production this "DB" object below would be replaced
+   by real backend REST/GraphQL APIs backed by a database (e.g. Postgres),
+   with role-based auth (JWT / session, server-verified) protecting
+   /admin and /retailer/* routes. Here we simulate ONE shared data layer
+   (localStorage) consumed identically by Customer, Retailer & Admin views
+   to demonstrate the connected architecture.
+=========================================================================== */
 
-  // Cities (city first only; PIN lives at checkout)
-  const cities=[
-    {name:'New Delhi', detail:'110001 metro catchment'},
-    {name:'Mumbai', detail:'400050 + 42 zones'},
-    {name:'Bengaluru', detail:'560001 + 31 zones'},
-    {name:'Pune', detail:'411001 + 18 zones'},
-    {name:'Jaipur', detail:'302001 + 12 zones'}
-  ];
-  let city=cities[0]; let cat='All'; let cart=[];
+const ADMIN_CREDENTIALS = { email: 'admin@d2cindia.com', password: 'Admin@123' };
 
-  // City menu
-  const menu=document.getElementById('cityMenu');
-  const btn=document.getElementById('cityBtn');
-  function renderCities(){
-    menu.innerHTML=cities.map((c,i)=>`<li><button role="option" aria-selected="${c===city}" class="w-full text-left rounded-2xl px-4 py-4 border ${c===city?'border-[#F8F3E8] bg-[rgba(248,243,232,.1)]':'border-[rgba(248,243,232,.12)]'}" onclick="selectCity(${i})"><span class="serif text-lg tracking-tight">${c.name}</span><span class="block mono text-[11px] uppercase tracking-[.2em] text-[rgba(248,243,232,.6)] pt-1">${c.detail} · active DB scope</span></button></li>`).join('');
+const DEFAULT_DB = {
+  categories: [
+    {id:1, name:'Toys', icon:'🧸', active:true},
+    {id:2, name:'Stationery', icon:'✏️', active:true},
+    {id:3, name:'Gifts', icon:'🎁', active:true},
+    {id:4, name:'Clothes', icon:'👕', active:true},
+    {id:5, name:'Electronics', icon:'🔌', active:true},
+  ],
+  cities: ['Mumbai','Delhi','Bengaluru','Hyderabad','Chennai','Kolkata','Pune','Ahmedabad','Jaipur','Lucknow'],
+  retailers: [
+    {id:'r1', shopName:'ToyLand India', owner:'Rahul Sharma', email:'rahul@toyland.com', phone:'9876543210', city:'Mumbai', gstin:'27ABCDE1234F1Z5', plan:'yearly', status:'approved', joined:'2023-11-02', expiry:'2025-11-02'},
+    {id:'r2', shopName:'Stationery Hub', owner:'Neha Verma', email:'neha@stationeryhub.com', phone:'9876543211', city:'Delhi', gstin:'07ABCDE5678F1Z2', plan:'monthly', status:'approved', joined:'2024-01-15', expiry:'2024-12-15'},
+    {id:'r3', shopName:'Gift Gallery', owner:'Amit Joshi', email:'amit@giftgallery.com', phone:'9876543212', city:'Bengaluru', gstin:'29ABCDE9012F1Z8', plan:'yearly', status:'approved', joined:'2023-08-20', expiry:'2025-08-20'},
+    {id:'r4', shopName:'Trendy Threads', owner:'Priya Nair', email:'priya@trendythreads.com', phone:'9876543213', city:'Pune', gstin:'27ABCDE3456F1Z1', plan:'monthly', status:'approved', joined:'2024-03-01', expiry:'2024-12-01'},
+    {id:'r5', shopName:'TechBazaar', owner:'Karan Mehta', email:'karan@techbazaar.com', phone:'9876543214', city:'Hyderabad', gstin:'36ABCDE7890F1Z6', plan:'yearly', status:'approved', joined:'2023-06-11', expiry:'2025-06-11'},
+    {id:'r6', shopName:'Fun Toys Co', owner:'Sneha Rao', email:'sneha@funtoys.com', phone:'9876543215', city:'Chennai', gstin:'33ABCDE2345F1Z9', plan:'monthly', status:'pending', joined:'2024-06-01', expiry:'2024-07-01'},
+  ],
+  products: [
+    {id:'p1', name:'Wooden Building Blocks Set', category:1, price:499, mrp:699, stock:50, icon:'🧱', retailerId:'r1', active:true},
+    {id:'p2', name:'Remote Control Racing Car', category:1, price:899, mrp:1199, stock:30, icon:'🚗', retailerId:'r1', active:true},
+    {id:'p3', name:'Soft Teddy Bear (Large)', category:1, price:349, mrp:499, stock:40, icon:'🧸', retailerId:'r6', active:true},
+    {id:'p4', name:'Notebook Combo Pack (5pc)', category:2, price:199, mrp:299, stock:100, icon:'📓', retailerId:'r2', active:true},
+    {id:'p5', name:'Premium Gel Pen Set', category:2, price:249, mrp:349, stock:80, icon:'🖊️', retailerId:'r2', active:true},
+    {id:'p6', name:'Kids Art & Colour Kit', category:2, price:399, mrp:549, stock:60, icon:'🎨', retailerId:'r2', active:true},
+    {id:'p7', name:'Personalized Photo Frame', category:3, price:599, mrp:799, stock:35, icon:'🖼️', retailerId:'r3', active:true},
+    {id:'p8', name:'Scented Candle Gift Set', category:3, price:449, mrp:599, stock:45, icon:'🕯️', retailerId:'r3', active:true},
+    {id:'p9', name:'Deluxe Gift Hamper', category:3, price:1299, mrp:1599, stock:20, icon:'🎁', retailerId:'r3', active:true},
+    {id:'p10', name:'Cotton Casual Shirt', category:4, price:699, mrp:999, stock:70, icon:'👕', retailerId:'r4', active:true},
+    {id:'p11', name:"Women's Printed Kurti", category:4, price:799, mrp:1099, stock:55, icon:'👗', retailerId:'r4', active:true},
+    {id:'p12', name:"Kids Winter Jacket", category:4, price:999, mrp:1399, stock:25, icon:'🧥', retailerId:'r4', active:true},
+    {id:'p13', name:'Wireless Bluetooth Earbuds', category:5, price:1499, mrp:2499, stock:60, icon:'🎧', retailerId:'r5', active:true},
+    {id:'p14', name:'Smart Fitness Watch', category:5, price:2299, mrp:3499, stock:40, icon:'⌚', retailerId:'r5', active:true},
+    {id:'p15', name:'Portable Bluetooth Speaker', category:5, price:1199, mrp:1799, stock:50, icon:'🔊', retailerId:'r5', active:true},
+  ],
+  orders: [
+    {id:'ORD1001', items:[{productId:'p13', qty:1, price:1499}], retailerId:'r5', customer:'Guest Customer', city:'Hyderabad', status:'Delivered', deliveryPerson:'Suresh Kumar (9988776655)', date:'2024-06-01', total:1499},
+    {id:'ORD1002', items:[{productId:'p4', qty:2, price:199}], retailerId:'r2', customer:'Guest Customer', city:'Delhi', status:'Out for Delivery', deliveryPerson:'Ravi Singh (9988776656)', date:'2024-06-10', total:398},
+  ],
+};
+
+function loadDB(){
+  const raw = localStorage.getItem('d2c_db_v1');
+  if(!raw){ localStorage.setItem('d2c_db_v1', JSON.stringify(DEFAULT_DB)); return JSON.parse(JSON.stringify(DEFAULT_DB)); }
+  try{ return JSON.parse(raw); }catch(e){ return JSON.parse(JSON.stringify(DEFAULT_DB)); }
+}
+let DB = loadDB();
+function saveDB(){ localStorage.setItem('d2c_db_v1', JSON.stringify(DB)); }
+
+let CART = JSON.parse(localStorage.getItem('d2c_cart')||'{}');
+function saveCart(){ localStorage.setItem('d2c_cart', JSON.stringify(CART)); }
+
+let selectedCity = localStorage.getItem('d2c_city') || null;
+let activeCategoryFilter = null;
+let searchTerm = '';
+
+let isAdminAuthed = sessionStorage.getItem('d2c_admin_auth') === 'true';
+let adminNav = 'overview';
+
+let currentRetailerId = sessionStorage.getItem('d2c_retailer_id') || null;
+let retailerView = 'onboarding'; // onboarding | login | signup | dashboard
+let retailerNav = 'overview';
+let signupPlanChoice = 'monthly';
+
+/* ---------------------- UTILITIES ---------------------- */
+function $(sel){ return document.querySelector(sel); }
+function $all(sel){ return document.querySelectorAll(sel); }
+function uid(prefix){ return prefix + Math.random().toString(36).slice(2,9); }
+function fmt(n){ return '₹' + Number(n).toLocaleString('en-IN'); }
+
+function showToast(msg, type){
+  const wrap = $('#toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = msg;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(120%)'; el.style.transition='.3s'; setTimeout(()=>el.remove(),300); }, 2600);
+}
+
+function openModal(html){
+  $('#genericModalBody').innerHTML = html;
+  $('#genericModal').classList.add('show');
+}
+function closeModal(){ $('#genericModal').classList.remove('show'); }
+
+/* ---------------------- ROUTER ---------------------- */
+function route(){
+  const hash = location.hash || '#/';
+  $all('.screen').forEach(s=>s.classList.remove('active'));
+  $('#sellFloatBtn').style.display = 'flex';
+
+  if(hash.startsWith('#/admin')){
+    $('#screen-admin').classList.add('active');
+    $('#sellFloatBtn').style.display = 'none';
+    renderAdmin();
+  } else if(hash.startsWith('#/retailer')){
+    $('#screen-retailer').classList.add('active');
+    $('#sellFloatBtn').style.display = 'none';
+    if(currentRetailerId) retailerView = 'dashboard';
+    renderRetailer();
+  } else {
+    $('#screen-customer').classList.add('active');
+    renderCustomer();
   }
-  window.selectCity=function(i){
-    city=cities[i]; renderCities();
-    document.getElementById('cityLabel').textContent=city.name+' · '+city.detail;
-    menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false');
-    document.getElementById('cityBanner').innerHTML=`<span class="mono text-xs uppercase tracking-[.25em] rounded-full border border-[rgba(248,243,232,.2)] px-4 py-3">Scope locked: ${city.name} only · PIN hidden from browse · shared DB view v${Math.floor(Math.random()*8)+2}</span>`;
-    renderProducts(); toast('City scope switched to '+city.name+' · catalog rows re-filtered · no PIN shown');
-  };
-  renderCities();
-  btn.addEventListener('click',e=>{ e.stopPropagation(); const open=menu.classList.toggle('hidden'); btn.setAttribute('aria-expanded', String(!open)); });
-  document.addEventListener('click',e=>{ if(!menu.classList.contains('hidden') && !e.target.closest('#cityGroup') && !e.target.closest('#cityMenu')) menu.classList.add('hidden'); });
-  document.getElementById('cityBanner').innerHTML=`<span class="mono text-xs uppercase tracking-[.25em] rounded-full border border-[rgba(248,243,232,.2)] px-4 py-3">Scope locked: New Delhi only · PIN hidden from browse · shared DB live</span>`;
+  window.scrollTo({top:0, behavior:'instant'});
+}
+window.addEventListener('hashchange', route);
 
-  // Categories — initial kit (admin-managed, no code changes in reality)
-  const cats=['All','Toys','Stationery','Gifts','Clothes','Electronics'];
-  document.getElementById('catRow').innerHTML=cats.map((c,i)=>`<button class="pill ${i===0?'active':''} rounded-full px-5 py-3 text-sm whitespace-nowrap" data-cat="${c}" onclick="setCat('${c}',this)">${c}</button>`).join('');
-  window.setCat=function(c,el){
-    cat=c; document.querySelectorAll('#catRow .pill').forEach(b=>b.classList.remove('active')); el.classList.add('active'); renderProducts();
-  };
-
-  // Filters
-  document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('chip')||0);
-    renderProducts(b.dataset.filter==='low'?'low':b.dataset.filter==='deal'?'deal':'all');
-  }));
-
-  function renderProducts(mode){
-    mode=mode||'all';
-    let list=products.filter(p=>p.city && (cat==='All'||p.cat===cat));
-    if(mode==='low') list=list.filter(p=>p.stock<8);
-    if(mode==='deal') list=list.filter(p=>p.price<1500);
-    const q=(document.getElementById('searchInput').value||'').trim().toLowerCase();
-    if(q) list=list.filter(p=>p.name.toLowerCase().includes(q));
-    document.getElementById('resultCount').textContent=list.length+' rows · '+city.name+' scope';
-    document.getElementById('productGrid').innerHTML=list.map(p=>`
-      <button aria-label="View ${p.name}" onclick="window.viewProduct('${p.name}')" class="card group rounded-[24px] p-4 text-left transition-transform hover:-translate-y-2 focus-visible:outline-none flex flex-col gap-4">
-        <div class="rounded-[16px] min-h-[130px] grid place-items-center border border-[rgba(248,243,232,.12)]" style="background:linear-gradient(150deg, rgba(248,243,232,.16), rgba(248,243,232,.03))">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#F8F3E8" stroke-width="1.1" class="w-14 h-14 opacity-70 group-hover:scale-105 transition-transform" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15c1.5-4 5-4 6 0"/></svg>
-        </div>
-        <div class="flex flex-col gap-1 grow">
-          <span class="mono text-[10px] uppercase tracking-[.25em] text-[rgba(248,243,232,.6)]">${p.cat} · R-2041</span>
-          <h3 class="serif text-lg leading-6 tracking-[-0.02em]">${p.name}</h3>
-          <p class="serif text-2xl pt-1">${fmt(p.price)}</p>
-          <span class="mono text-[11px] uppercase tracking-[.2em] pt-2 ${p.stock<8?'':'text-[rgba(248,243,232,.55)]'}">${p.stock<8?'Low stock · '+p.stock+' left':'In stock · '+p.stock}</span>
-        </div>
-        <span class="btn-cream rounded-full px-4 py-3 text-center text-sm font-semibold" onclick="event.stopPropagation();addToCart('${p.name}',${p.price})">Add · Buy</span>
-      </button>`).join('');
-    document.getElementById('emptyState').classList.toggle('hidden', list.length>0);
-  }
-  window.viewProduct=function(name){ document.getElementById('productDetail').scrollIntoView({behavior:'smooth',block:'center'}); toast('Loaded '+name+' · product row + retailer link resolved'); };
-  document.getElementById('searchInput').addEventListener('input',e=>renderProducts());
+/* ==========================================================================
+   CUSTOMER SITE RENDERING
+=========================================================================== */
+function renderCustomer(){
+  $('#headerCityLabel').textContent = selectedCity || 'Select City';
+  renderCategories();
   renderProducts();
+  updateCartBadge();
+  if(!selectedCity){ openCityModal(true); }
+}
 
-  // Cart
-  window.addToCart=function(name,price){ cart.push({name,price}); document.getElementById('cartCount').textContent=cart.length; renderCart(); toast(name+' added · shared cart row written'); };
-  window.buyNow=function(){ addToCart('Papier Star',1290); document.getElementById('checkout').scrollIntoView({behavior:'smooth'}); };
-  function renderCart(){
-    const el=document.getElementById('cartItems');
-    el.innerHTML = cart.length ? cart.map((i,x)=>`<div class="flex items-center justify-between gap-4 rounded-3xl border border-[rgba(248,243,232,.14)] p-4"><div><h3 class="serif text-lg">${i.name}</h3><p class="mono text-xs uppercase tracking-[.2em] opacity-60">Linked R-2041 · sub-order ready</p></div><div class="flex items-center gap-4"><span class="serif text-xl">${fmt(i.price)}</span><button aria-label="Remove ${i.name}" class="w-8 h-8 rounded-full border border-[rgba(248,243,232,.2)]" onclick="cart.splice(${x},1);renderCart();document.getElementById('cartCount').textContent=cart.length">✕</button></div></div>`).join('')
-    : '<p class="text-sm opacity-60 py-8 text-center">Your shared cart is empty. Add from the catalog in your selected city.</p>';
+function renderCategories(){
+  const grid = $('#categoriesGrid');
+  const cats = DB.categories.filter(c=>c.active);
+  grid.innerHTML = cats.map(c=>`
+    <div class="card cat-card p-5 text-center ${activeCategoryFilter===c.id?'active-cat':''}" onclick="filterByCategory(${c.id})">
+      <div class="text-4xl mb-2">${c.icon}</div>
+      <div class="font-bold text-sm" style="color:var(--cherry-dark);">${c.name}</div>
+    </div>
+  `).join('') || `<div class="col-span-full text-center py-6" style="color:var(--offwhite);">No categories available.</div>`;
+}
+
+function filterByCategory(id){
+  activeCategoryFilter = (activeCategoryFilter===id) ? null : id;
+  renderCategories();
+  renderProducts();
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+function clearCategoryFilter(){ activeCategoryFilter = null; renderCategories(); renderProducts(); }
+
+function onSearch(val){ searchTerm = val.trim().toLowerCase(); renderProducts(); }
+
+function getVisibleProducts(){
+  return DB.products.filter(p=>{
+    if(!p.active) return false;
+    const retailer = DB.retailers.find(r=>r.id===p.retailerId);
+    if(!retailer || retailer.status !== 'approved') return false;
+    if(activeCategoryFilter && p.category !== activeCategoryFilter) return false;
+    if(searchTerm && !p.name.toLowerCase().includes(searchTerm)) return false;
+    return true;
+  });
+}
+
+function renderProducts(){
+  const list = getVisibleProducts();
+  const grid = $('#productsGrid');
+  const cat = DB.categories.find(c=>c.id===activeCategoryFilter);
+  $('#productsHeading').textContent = cat ? (cat.icon+' '+cat.name) : 'Trending Products';
+  $('#productsCount').textContent = list.length + ' products' + (selectedCity? ' • Delivering to '+selectedCity : '');
+
+  grid.innerHTML = list.map(p=>{
+    const retailer = DB.retailers.find(r=>r.id===p.retailerId);
+    const discount = Math.round(((p.mrp-p.price)/p.mrp)*100);
+    return `
+    <div class="card prod-card p-4 flex flex-col">
+      <div class="h-28 rounded-xl flex items-center justify-center text-5xl mb-3" style="background:var(--offwhite-dark);">${p.icon}</div>
+      <div class="text-sm font-bold leading-snug mb-1" style="color:#2b1015;">${p.name}</div>
+      <div class="text-xs opacity-60 mb-2">by ${retailer? retailer.shopName : 'D2C Retailer'}</div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="font-heading font-bold text-lg" style="color:var(--cherry-dark);">${fmt(p.price)}</span>
+        <span class="text-xs line-through opacity-50">${fmt(p.mrp)}</span>
+        <span class="text-xs font-bold" style="color:#15803d;">${discount}% OFF</span>
+      </div>
+      <button onclick="addToCart('${p.id}')" class="btn-cherry mt-auto text-sm" style="background:var(--cherry); border-color:var(--cherry);">Add to Cart</button>
+    </div>`;
+  }).join('') || `<div class="col-span-full text-center py-14 card"><div class="text-4xl mb-2">🔍</div><div class="font-bold">No products found</div><div class="text-sm opacity-60">Try a different category or search term.</div></div>`;
+}
+
+/* ---------------------- CITY MODAL ---------------------- */
+function openCityModal(force){
+  $('#cityModal').classList.add('show');
+  $('#cityModal').style.zIndex = 250;
+  renderCityOptions('');
+  if(force){ document.body.style.overflow='hidden'; }
+}
+function renderCityOptions(term){
+  const wrap = $('#cityOptionsWrap');
+  const list = DB.cities.filter(c=>c.toLowerCase().includes(term.toLowerCase()));
+  wrap.innerHTML = list.map(c=>`
+    <div class="city-chip card px-3 py-3 text-center text-sm font-semibold" style="color:var(--cherry-dark);" onclick="selectCity('${c}')">📍 ${c}</div>
+  `).join('') || `<div class="col-span-full text-center text-sm opacity-60 py-4">No matching city</div>`;
+}
+function selectCity(city){
+  selectedCity = city;
+  localStorage.setItem('d2c_city', city);
+  $('#cityModal').classList.remove('show');
+  document.body.style.overflow='auto';
+  $('#headerCityLabel').textContent = city;
+  renderProducts();
+  showToast('📍 Delivering to <b>'+city+'</b>');
+}
+
+/* ---------------------- CART ---------------------- */
+function addToCart(pid){
+  CART[pid] = (CART[pid]||0) + 1;
+  saveCart(); updateCartBadge();
+  showToast('✅ Added to cart!');
+}
+function changeQty(pid, delta){
+  CART[pid] = (CART[pid]||0) + delta;
+  if(CART[pid] <= 0) delete CART[pid];
+  saveCart(); updateCartBadge(); renderCartDrawer();
+}
+function removeFromCart(pid){ delete CART[pid]; saveCart(); updateCartBadge(); renderCartDrawer(); }
+
+function updateCartBadge(){
+  const count = Object.values(CART).reduce((a,b)=>a+b,0);
+  $('#cartCountBadge').textContent = count;
+}
+
+function openCart(){ $('#cartOverlay').classList.add('show'); $('#cartDrawer').classList.add('open'); renderCartDrawer(); }
+function closeCart(){ $('#cartOverlay').classList.remove('show'); $('#cartDrawer').classList.remove('open'); }
+
+function renderCartDrawer(){
+  const ids = Object.keys(CART);
+  const itemsWrap = $('#cartItemsWrap');
+  const footer = $('#cartFooter');
+  if(ids.length===0){
+    itemsWrap.innerHTML = `<div class="text-center py-16 opacity-60"><div class="text-5xl mb-3">🛒</div>Your cart is empty</div>`;
+    footer.innerHTML = '';
+    return;
   }
-  renderCart();
-  function toggleCart(open){ document.getElementById('cartDrawer').classList.toggle('open',open); document.getElementById('scrim').classList.toggle('hidden',!open); }
-  document.getElementById('cartOpen').addEventListener('click',()=>toggleCart(true));
-  document.getElementById('scrim').addEventListener('click',()=>toggleCart(false));
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') toggleCart(false); });
+  let subtotal = 0;
+  itemsWrap.innerHTML = ids.map(pid=>{
+    const p = DB.products.find(x=>x.id===pid);
+    if(!p) return '';
+    const qty = CART[pid];
+    subtotal += p.price*qty;
+    return `
+    <div class="flex gap-3 items-center py-3 border-b" style="border-color:var(--offwhite-dark);">
+      <div class="w-14 h-14 rounded-lg flex items-center justify-center text-2xl" style="background:var(--offwhite-dark);">${p.icon}</div>
+      <div class="flex-1">
+        <div class="text-sm font-bold">${p.name}</div>
+        <div class="text-xs opacity-60">${fmt(p.price)} x ${qty}</div>
+        <div class="flex items-center gap-2 mt-1">
+          <button onclick="changeQty('${pid}',-1)" class="w-6 h-6 rounded-full font-bold" style="background:var(--offwhite-dark);">-</button>
+          <span class="text-sm font-bold">${qty}</span>
+          <button onclick="changeQty('${pid}',1)" class="w-6 h-6 rounded-full font-bold" style="background:var(--offwhite-dark);">+</button>
+          <button onclick="removeFromCart('${pid}')" class="ml-2 text-xs" style="color:var(--cherry);">Remove</button>
+        </div>
+      </div>
+      <div class="font-bold text-sm">${fmt(p.price*qty)}</div>
+    </div>`;
+  }).join('');
 
-  // Retail rows (scoped)
-  const retail=[
-    ['Papier Star Desk Organiser',1290,24,'Stationery · custom: “Desk Rituals”'],
-    ['Monsoon Ribbon Notebook',420,6,'Stationery'],
-    ['Marble Counter Gift Box',980,15,'Gifts · custom: “Wedding Edit”'],
-    ['Cherry Rose Silk Slip',2190,12,'Clothes']
-  ];
-  document.getElementById('retailRows').innerHTML=retail.map(r=>`<tr><td class="px-5 py-6 serif text-lg">${r[0]}<span class="mono block text-[10px] uppercase tracking-[.2em] opacity-50">Product_ID ▸ R-2041 only</span></td><td class="px-5 py-6">${fmt(r[1])}</td><td class="px-5 py-6">${r[2]} pcs</td><td class="px-5 py-6 text-sm">${r[3]}</td><td class="px-5 py-6"><button class="btn-ghost rounded-full px-5 py-3 text-xs" onclick="toast('Scoped action · retailer R-2041 cannot see revenue, costs or other retailers')">Update status ▸</button></td></tr>`).join('');
+  const delivery = subtotal >= 499 ? 0 : 40;
+  const total = subtotal + delivery;
+  footer.innerHTML = `
+    <div class="flex justify-between text-sm mb-1"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+    <div class="flex justify-between text-sm mb-1"><span>Delivery</span><span>${delivery===0?'FREE':fmt(delivery)}</span></div>
+    <div class="flex justify-between font-bold text-lg mb-3" style="color:var(--cherry-dark);"><span>Total</span><span>${fmt(total)}</span></div>
+    <button onclick="openCheckout(${total})" class="btn-cherry w-full">Proceed to Checkout</button>
+  `;
+}
 
-  // Toast
-  let toastT;
-  window.toast=function(msg){
-    const t=document.getElementById('toast'); t.textContent=msg; t.classList.remove('hidden');
-    clearTimeout(toastT); toastT=setTimeout(()=>t.classList.add('hidden'),3200);
+function openCheckout(total){
+  openModal(`
+    <h3 class="font-heading font-bold text-xl mb-4" style="color:var(--cherry-dark);">Checkout Details</h3>
+    <div class="space-y-3">
+      <div><label class="field-label">Full Name</label><input id="chkName" class="input-field" placeholder="Your name"></div>
+      <div><label class="field-label">Phone Number</label><input id="chkPhone" class="input-field" placeholder="10-digit mobile"></div>
+      <div><label class="field-label">Delivery City</label><input class="input-field" value="${selectedCity||''}" disabled></div>
+      <div><label class="field-label">Address</label><textarea id="chkAddr" class="input-field" rows="2" placeholder="Full address"></textarea></div>
+      <div class="flex justify-between font-bold text-lg pt-2" style="color:var(--cherry-dark);"><span>Total Payable</span><span>${fmt(total)}</span></div>
+      <button onclick="placeOrder()" class="btn-cherry w-full mt-2">Place Order (Pay on Delivery)</button>
+      <button onclick="closeModal()" class="w-full text-sm opacity-60 mt-1">Cancel</button>
+    </div>
+  `);
+}
+
+function placeOrder(){
+  const name = $('#chkName').value.trim() || 'Guest Customer';
+  const ids = Object.keys(CART);
+  if(ids.length===0){ closeModal(); return; }
+  // group items by retailer to create separate orders (simulating multi-vendor fulfillment)
+  const byRetailer = {};
+  ids.forEach(pid=>{
+    const p = DB.products.find(x=>x.id===pid);
+    if(!p) return;
+    if(!byRetailer[p.retailerId]) byRetailer[p.retailerId] = [];
+    byRetailer[p.retailerId].push({productId:pid, qty:CART[pid], price:p.price});
+  });
+  const newOrderIds = [];
+  Object.keys(byRetailer).forEach(rid=>{
+    const items = byRetailer[rid];
+    const total = items.reduce((a,i)=>a+i.price*i.qty,0);
+    const order = {
+      id: 'ORD' + Math.floor(1000+Math.random()*9000),
+      items, retailerId: rid, customer: name, city: selectedCity || 'Not set',
+      status: 'Pending', deliveryPerson: '', date: new Date().toISOString().slice(0,10), total
+    };
+    DB.orders.push(order);
+    newOrderIds.push(order.id);
+  });
+  saveDB();
+  CART = {}; saveCart(); updateCartBadge(); renderCartDrawer(); closeCart();
+  closeModal();
+  openModal(`
+    <div class="text-center">
+      <div class="text-5xl mb-3">🎉</div>
+      <h3 class="font-heading font-bold text-xl mb-2" style="color:var(--cherry-dark);">Order Placed Successfully!</h3>
+      <p class="text-sm opacity-70 mb-4">Order ID(s): <b>${newOrderIds.join(', ')}</b></p>
+      <button onclick="closeModal()" class="btn-cherry w-full">Continue Shopping</button>
+    </div>
+  `);
+}
+
+function openMyOrders(){
+  const orders = DB.orders.filter(o=>o.customer==='Guest Customer').slice(-10).reverse();
+  openModal(`
+    <h3 class="font-heading font-bold text-xl mb-4" style="color:var(--cherry-dark);">📦 My Orders</h3>
+    <div class="max-h-80 overflow-y-auto space-y-3">
+    ${orders.map(o=>`
+      <div class="p-3 rounded-xl" style="background:var(--offwhite-dark);">
+        <div class="flex justify-between text-sm font-bold"><span>${o.id}</span><span>${fmt(o.total)}</span></div>
+        <div class="text-xs opacity-70 mt-1">Status: <b>${o.status}</b> • ${o.date}</div>
+        ${o.deliveryPerson? `<div class="text-xs opacity-70">Delivery: ${o.deliveryPerson}</div>`:''}
+      </div>
+    `).join('') || `<div class="text-sm opacity-60 text-center py-6">No orders yet. Start shopping!</div>`}
+    </div>
+    <button onclick="closeModal()" class="btn-cherry w-full mt-4">Close</button>
+  `);
+}
+
+/* ==========================================================================
+   RETAILER PORTAL
+=========================================================================== */
+function retailerNavTo(view){ retailerView = view; renderRetailer(); }
+
+function renderRetailer(){
+  const el = $('#retailerContent');
+  if(retailerView === 'dashboard' && currentRetailerId){
+    el.innerHTML = retailerDashboardHTML();
+    retailerDashSection();
+    return;
+  }
+  if(retailerView === 'login'){ el.innerHTML = retailerLoginHTML(); return; }
+  if(retailerView === 'signup'){ el.innerHTML = retailerSignupHTML(); return; }
+  el.innerHTML = retailerOnboardingHTML();
+}
+
+function retailerTopbar(){
+  return `
+  <header style="background:var(--cherry);" class="sticky top-0 z-40 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#/" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg" style="background:var(--offwhite);">🛍️</div>
+        <span class="font-heading font-extrabold" style="color:var(--offwhite);">D2C India <span class="font-normal text-xs opacity-70">for Business</span></span>
+      </a>
+      <div class="flex gap-2 items-center">
+        <a href="#/" class="text-sm font-semibold hidden sm:block" style="color:var(--offwhite);">← Back to Shopping</a>
+        ${currentRetailerId ? '' : `
+        <button onclick="retailerNavTo('login')" class="btn-ghost text-sm">Login</button>
+        <button onclick="retailerNavTo('signup')" class="btn-primary text-sm">Register Now</button>`}
+      </div>
+    </div>
+  </header>`;
+}
+
+function retailerOnboardingHTML(){
+  return `
+  ${retailerTopbar()}
+  <section class="px-4 py-16" style="background:linear-gradient(160deg,var(--cherry),var(--cherry-dark));">
+    <div class="max-w-5xl mx-auto text-center fade-in">
+      <span class="badge" style="background:var(--offwhite); color:var(--cherry-dark);">For Retailers & Manufacturers</span>
+      <h1 class="font-heading font-extrabold text-3xl sm:text-5xl mt-4" style="color:var(--offwhite);">Grow Your Business with D2C India</h1>
+      <p class="mt-4 text-lg opacity-90 max-w-2xl mx-auto" style="color:var(--offwhite);">Sell your Toys, Stationery, Gifts, Clothes or Electronics directly to customers across India — no middlemen, fast payouts, full control.</p>
+      <div class="mt-8 flex justify-center gap-4 flex-wrap">
+        <button onclick="retailerNavTo('signup')" class="btn-primary">Start Selling Today →</button>
+        <button onclick="retailerNavTo('login')" class="btn-outline-c" style="border-color:var(--offwhite); color:var(--offwhite);">Retailer Login</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-16" style="background:var(--cherry);">
+    <h2 class="font-heading font-bold text-2xl text-center mb-10" style="color:var(--offwhite);">Why Sell on D2C India?</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      ${[
+        ['🌏','Pan-India Reach','Reach customers across 10+ major Indian cities from day one.'],
+        ['💸','Fast Weekly Payouts','Get your money in your bank account every week, no delays.'],
+        ['📊','Real-Time Analytics','Track sales, inventory and customer trends on your dashboard.'],
+        ['📣','Marketing Support','Featured placements & promotional campaigns to boost visibility.'],
+        ['🧾','Simple Onboarding','List your first product in under 10 minutes.'],
+        ['🚚','Manual Delivery Control','Full control to assign & manage your own delivery partners.'],
+      ].map(f=>`
+        <div class="card p-6">
+          <div class="text-3xl mb-2">${f[0]}</div>
+          <div class="font-bold mb-1" style="color:var(--cherry-dark);">${f[1]}</div>
+          <div class="text-sm opacity-70">${f[2]}</div>
+        </div>`).join('')}
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-16" style="background:var(--cherry);">
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="card p-8">
+        <h3 class="font-heading font-bold text-xl mb-4" style="color:var(--cherry-dark);">✅ Requirements to Join</h3>
+        <ul class="space-y-3 text-sm">
+          ${['Valid GSTIN / business registration proof','Active bank account for payouts','Product photos meeting quality guidelines','Compliance with MRP & pricing policy','Agreement to platform commission (flat 8% per order)','Ability to fulfil orders within committed timelines']
+          .map(t=>`<li class="flex gap-2"><span style="color:var(--cherry);">●</span>${t}</li>`).join('')}
+        </ul>
+      </div>
+      <div class="card p-8">
+        <h3 class="font-heading font-bold text-xl mb-4" style="color:var(--cherry-dark);">🗂️ Product Management Tools</h3>
+        <ul class="space-y-3 text-sm">
+          ${['Add / edit unlimited or plan-based product listings','Real-time inventory & stock sync','Instant order notifications','Manual delivery partner assignment per order','Order status tracking (Packed → Out for Delivery → Delivered)','Sales performance & revenue analytics']
+          .map(t=>`<li class="flex gap-2"><span style="color:var(--cherry);">●</span>${t}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-16" style="background:var(--cherry);">
+    <h2 class="font-heading font-bold text-2xl text-center mb-2" style="color:var(--offwhite);">Simple, Transparent Subscription Plans</h2>
+    <p class="text-center opacity-80 mb-10" style="color:var(--offwhite);">Choose the plan that fits your business — cancel or upgrade anytime.</p>
+    <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+      <div class="card plan-card p-8">
+        <div class="text-sm font-bold uppercase tracking-wide opacity-60">Monthly Plan</div>
+        <div class="font-heading font-extrabold text-4xl my-2" style="color:var(--cherry-dark);">₹2,000<span class="text-base font-normal opacity-60">/month</span></div>
+        <ul class="text-sm space-y-2 my-5">
+          ${['List up to 100 products','Full retailer dashboard access','Manual order & delivery management','Standard support','Cancel anytime'].map(t=>`<li>✔️ ${t}</li>`).join('')}
+        </ul>
+        <button onclick="signupPlanChoice='monthly'; retailerNavTo('signup')" class="btn-cherry w-full">Choose Monthly</button>
+      </div>
+      <div class="card plan-card p-8" style="border-color:var(--cherry);">
+        <div class="text-sm font-bold uppercase tracking-wide" style="color:var(--cherry);">Yearly Plan • Save ₹4,000</div>
+        <div class="font-heading font-extrabold text-4xl my-2" style="color:var(--cherry-dark);">₹20,000<span class="text-base font-normal opacity-60">/year</span></div>
+        <ul class="text-sm space-y-2 my-5">
+          ${['Unlimited product listings','Priority placement in search results','Dedicated account manager','Advanced + manual delivery tools','Priority support','2 months completely free'].map(t=>`<li>✔️ ${t}</li>`).join('')}
+        </ul>
+        <button onclick="signupPlanChoice='yearly'; retailerNavTo('signup')" class="btn-cherry w-full">Choose Yearly</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center py-8 text-xs opacity-60" style="background:var(--cherry-dark); color:var(--offwhite);">© 2024 D2C India for Business.</footer>
+  `;
+}
+
+function retailerLoginHTML(){
+  return `
+  ${retailerTopbar()}
+  <section class="min-h-[80vh] flex items-center justify-center px-4 py-16" style="background:var(--cherry);">
+    <div class="card p-8 w-full max-w-md fade-in">
+      <h2 class="font-heading font-bold text-2xl mb-1" style="color:var(--cherry-dark);">Retailer Login</h2>
+      <p class="text-sm opacity-60 mb-6">Access your D2C India seller dashboard.</p>
+      <div class="space-y-3">
+        <div><label class="field-label">Registered Email</label><input id="rLoginEmail" class="input-field" placeholder="you@business.com"></div>
+        <div><label class="field-label">Password</label><input id="rLoginPass" type="password" class="input-field" placeholder="••••••••"></div>
+        <button onclick="doRetailerLogin()" class="btn-cherry w-full mt-2">Login</button>
+        <p class="text-xs opacity-60 text-center mt-2">Demo tip: try <b>rahul@toyland.com</b> (any password)</p>
+        <p class="text-sm text-center mt-4">New retailer? <button onclick="retailerNavTo('signup')" class="font-bold underline" style="color:var(--cherry);">Register here</button></p>
+      </div>
+    </div>
+  </section>`;
+}
+
+function doRetailerLogin(){
+  const email = $('#rLoginEmail').value.trim().toLowerCase();
+  const r = DB.retailers.find(x=>x.email.toLowerCase()===email);
+  if(!r){ showToast('❌ No retailer found with that email'); return; }
+  currentRetailerId = r.id;
+  sessionStorage.setItem('d2c_retailer_id', r.id);
+  retailerView='dashboard';
+  showToast('👋 Welcome back, '+r.shopName);
+  renderRetailer();
+}
+
+function retailerSignupHTML(){
+  return `
+  ${retailerTopbar()}
+  <section class="flex items-center justify-center px-4 py-14" style="background:var(--cherry);">
+    <div class="card p-8 w-full max-w-xl fade-in">
+      <h2 class="font-heading font-bold text-2xl mb-1" style="color:var(--cherry-dark);">Register as Retailer</h2>
+      <p class="text-sm opacity-60 mb-6">Fill your business details to start selling on D2C India.</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div><label class="field-label">Shop / Brand Name</label><input id="sShop" class="input-field" placeholder="e.g. Happy Toys Co"></div>
+        <div><label class="field-label">Owner Name</label><input id="sOwner" class="input-field" placeholder="Full name"></div>
+        <div><label class="field-label">Email</label><input id="sEmail" class="input-field" placeholder="you@business.com"></div>
+        <div><label class="field-label">Phone</label><input id="sPhone" class="input-field" placeholder="10-digit mobile"></div>
+        <div><label class="field-label">City</label>
+          <select id="sCity" class="input-field">${DB.cities.map(c=>`<option>${c}</option>`).join('')}</select>
+        </div>
+        <div><label class="field-label">GSTIN</label><input id="sGst" class="input-field" placeholder="22AAAAA0000A1Z5"></div>
+        <div class="sm:col-span-2"><label class="field-label">Password</label><input id="sPass" type="password" class="input-field" placeholder="Create a password"></div>
+        <div class="sm:col-span-2">
+          <label class="field-label">Select Subscription Plan</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="card p-3 flex items-center gap-2 cursor-pointer" style="border:2px solid ${signupPlanChoice==='monthly'?'var(--cherry)':'transparent'}">
+              <input type="radio" name="planRadio" value="monthly" ${signupPlanChoice==='monthly'?'checked':''} onchange="signupPlanChoice='monthly'"> 
+              <span class="text-sm font-semibold">Monthly ₹2,000/mo</span>
+            </label>
+            <label class="card p-3 flex items-center gap-2 cursor-pointer" style="border:2px solid ${signupPlanChoice==='yearly'?'var(--cherry)':'transparent'}">
+              <input type="radio" name="planRadio" value="yearly" ${signupPlanChoice==='yearly'?'checked':''} onchange="signupPlanChoice='yearly'"> 
+              <span class="text-sm font-semibold">Yearly ₹20,000/yr</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <button onclick="doRetailerSignup()" class="btn-cherry w-full mt-5">Submit Application</button>
+      <p class="text-sm text-center mt-4">Already registered? <button onclick="retailerNavTo('login')" class="font-bold underline" style="color:var(--cherry);">Login here</button></p>
+    </div>
+  </section>`;
+}
+
+function doRetailerSignup(){
+  const shopName = $('#sShop').value.trim();
+  const owner = $('#sOwner').value.trim();
+  const email = $('#sEmail').value.trim();
+  const phone = $('#sPhone').value.trim();
+  const city = $('#sCity').value;
+  const gstin = $('#sGst').value.trim();
+  if(!shopName || !owner || !email || !phone){ showToast('⚠️ Please fill all required fields'); return; }
+  if(DB.retailers.some(r=>r.email.toLowerCase()===email.toLowerCase())){ showToast('⚠️ Email already registered'); return; }
+  const today = new Date();
+  const expiry = new Date(today); expiry.setMonth(expiry.getMonth() + (signupPlanChoice==='yearly'?12:1));
+  const newRetailer = {
+    id: uid('r'), shopName, owner, email, phone, city, gstin, plan: signupPlanChoice,
+    status: 'pending', joined: today.toISOString().slice(0,10), expiry: expiry.toISOString().slice(0,10)
   };
-})();
+  DB.retailers.push(newRetailer);
+  saveDB();
+  currentRetailerId = newRetailer.id;
+  sessionStorage.setItem('d2c_retailer_id', newRetailer.id);
+  retailerView='dashboard';
+  showToast('🎉 Application submitted! Awaiting admin approval.');
+  renderRetailer();
+}
+
+function retailerLogout(){
+  currentRetailerId = null;
+  sessionStorage.removeItem('d2c_retailer_id');
+  retailerView = 'onboarding';
+  renderRetailer();
+}
+
+function retailerDashboardHTML(){
+  const r = DB.retailers.find(x=>x.id===currentRetailerId);
+  const items = [
+    ['overview','📊','Overview'],['products','📦','My Products'],['orders','🚚','Orders & Delivery'],
+    ['subscription','💳','Subscription'],['profile','🏬','Profile'],
+  ];
+  return `
+  <div class="min-h-screen flex" style="background:var(--offwhite-dark);">
+    <button id="rSidebarToggle" onclick="document.getElementById('rSidebar').classList.toggle('open')" class="md:hidden fixed top-3 left-3 z-[95] btn-cherry px-3 py-2 text-sm">☰</button>
+    <aside id="rSidebar" class="dash-sidebar w-64 shrink-0 p-5 flex flex-col gap-1" style="background:var(--cherry-dark);">
+      <div class="flex items-center gap-2 mb-6">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg" style="background:var(--offwhite);">🏬</div>
+        <div>
+          <div class="font-heading font-bold text-sm" style="color:var(--offwhite);">${r?r.shopName:''}</div>
+          <span class="badge badge-${r?r.status:'pending'}">${r?r.status:''}</span>
+        </div>
+      </div>
+      ${items.map(i=>`<div class="sidebar-btn ${retailerNav===i[0]?'active':''}" onclick="retailerNav='${i[0]}'; retailerDashSection(); document.getElementById('rSidebar').classList.remove('open');">${i[1]} ${i[2]}</div>`).join('')}
+      <div class="mt-auto pt-4 border-t" style="border-color:rgba(255,255,255,.15);">
+        <a href="#/" class="sidebar-btn">🏠 Customer Site</a>
+        <div class="sidebar-btn" onclick="retailerLogout()">🚪 Logout</div>
+      </div>
+    </aside>
+    <main class="flex-1 p-5 md:p-8 overflow-x-hidden" id="retailerMain"></main>
+  </div>`;
+}
+
+function retailerDashSection(){
+  const main = $('#retailerMain');
+  if(!main) return;
+  const r = DB.retailers.find(x=>x.id===currentRetailerId);
+  if(!r){ retailerLogout(); return; }
+  // refresh sidebar active state
+  const dash = $('#retailerContent');
+  if(dash) dash.innerHTML = retailerDashboardHTML();
+  const m2 = $('#retailerMain');
+
+  let banner = '';
+  if(r.status==='pending') banner = `<div class="card p-4 mb-5" style="border-left:5px solid #f59e0b;"><b>⏳ Awaiting Approval:</b> Your retailer account is pending admin review. You can add products, but they'll go live once approved.</div>`;
+  if(r.status==='rejected') banner = `<div class="card p-4 mb-5" style="border-left:5px solid #dc2626;"><b>❌ Application Rejected:</b> Contact support for more details.</div>`;
+  if(r.status==='suspended') banner = `<div class="card p-4 mb-5" style="border-left:5px solid #6b7280;"><b>🚫 Account Suspended</b> by admin. Contact support.</div>`;
+
+  const myProducts = DB.products.filter(p=>p.retailerId===r.id);
+  const myOrders = DB.orders.filter(o=>o.retailerId===r.id);
+
+  if(retailerNav==='overview'){
+    m2.innerHTML = `
+      ${banner}
+      <h2 class="font-heading font-bold text-2xl mb-5" style="color:var(--offwhite);">Welcome, ${r.owner} 👋</h2>
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+        ${statCard('📦','Products', myProducts.length)}
+        ${statCard('🧾','Orders', myOrders.length)}
+        ${statCard('💰','Revenue', fmt(myOrders.reduce((a,o)=>a+o.total,0)))}
+        ${statCard('⭐','Plan', r.plan==='yearly'?'Yearly':'Monthly')}
+      </div>
+      <div class="card p-5 mt-6">
+        <h3 class="font-bold mb-3" style="color:var(--cherry-dark);">Recent Orders</h3>
+        ${ordersTable(myOrders.slice(-5).reverse(), true)}
+      </div>
+    `;
+  } else if(retailerNav==='products'){
+    m2.innerHTML = `
+      ${banner}
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h2 class="font-heading font-bold text-2xl" style="color:var(--offwhite);">My Products</h2>
+        <button onclick="openAddProductModal()" class="btn-primary text-sm">+ Add New Product</button>
+      </div>
+      <div class="card p-4 scroll-x">
+        <table class="data-table">
+          <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            ${myProducts.map(p=>{
+              const cat = DB.categories.find(c=>c.id===p.category);
+              return `<tr>
+                <td>${p.icon} ${p.name}</td>
+                <td>${cat?cat.name:'-'}</td>
+                <td>${fmt(p.price)} <span class="line-through opacity-50 text-xs">${fmt(p.mrp)}</span></td>
+                <td>${p.stock}</td>
+                <td>${p.active?'<span class="badge badge-approved">Live</span>':'<span class="badge badge-pending">Hidden</span>'}</td>
+                <td>
+                  <button onclick="toggleProductActive('${p.id}')" class="text-xs underline mr-2">${p.active?'Hide':'Show'}</button>
+                  <button onclick="deleteProduct('${p.id}')" class="text-xs underline" style="color:#b91c1c;">Delete</button>
+                </td>
+              </tr>`;
+            }).join('') || `<tr><td colspan="6" class="text-center opacity-60 py-6">No products added yet.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if(retailerNav==='orders'){
+    m2.innerHTML = `
+      ${banner}
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">Orders & Manual Delivery Management</h2>
+      <div class="card p-4 scroll-x">
+        <table class="data-table">
+          <thead><tr><th>Order ID</th><th>Customer</th><th>City</th><th>Total</th><th>Status</th><th>Delivery Partner</th><th>Action</th></tr></thead>
+          <tbody>
+          ${myOrders.map(o=>`
+            <tr>
+              <td class="font-bold">${o.id}</td>
+              <td>${o.customer}</td>
+              <td>${o.city}</td>
+              <td>${fmt(o.total)}</td>
+              <td>
+                <select class="input-field text-xs py-1" onchange="updateOrderStatus('${o.id}', this.value)">
+                  ${['Pending','Packed','Out for Delivery','Delivered','Cancelled'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}
+                </select>
+              </td>
+              <td><input type="text" placeholder="Name (Phone)" value="${o.deliveryPerson||''}" class="input-field text-xs py-1" onchange="updateDeliveryPerson('${o.id}', this.value)"></td>
+              <td><button onclick="showToast('✅ Order updated')" class="btn-ghost text-xs">Save</button></td>
+            </tr>`).join('') || `<tr><td colspan="7" class="text-center opacity-60 py-6">No orders yet.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if(retailerNav==='subscription'){
+    m2.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">Subscription Plan</h2>
+      <div class="card p-6 max-w-lg">
+        <div class="flex justify-between items-center mb-3">
+          <span class="font-bold" style="color:var(--cherry-dark);">Current Plan</span>
+          <span class="badge badge-approved">${r.plan==='yearly'?'Yearly ₹20,000':'Monthly ₹2,000'}</span>
+        </div>
+        <div class="text-sm opacity-70 mb-1">Status: <span class="badge badge-${r.status}">${r.status}</span></div>
+        <div class="text-sm opacity-70 mb-4">Renews / Expires on: <b>${r.expiry}</b></div>
+        <div class="flex gap-3 flex-wrap">
+          <button onclick="renewPlan('monthly')" class="btn-outline-c text-sm">Switch to Monthly</button>
+          <button onclick="renewPlan('yearly')" class="btn-cherry text-sm">Switch to Yearly</button>
+        </div>
+      </div>
+    `;
+  } else if(retailerNav==='profile'){
+    m2.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">Business Profile</h2>
+      <div class="card p-6 max-w-lg space-y-3 text-sm">
+        <div><b>Shop Name:</b> ${r.shopName}</div>
+        <div><b>Owner:</b> ${r.owner}</div>
+        <div><b>Email:</b> ${r.email}</div>
+        <div><b>Phone:</b> ${r.phone}</div>
+        <div><b>City:</b> ${r.city}</div>
+        <div><b>GSTIN:</b> ${r.gstin || '-'}</div>
+        <div><b>Joined:</b> ${r.joined}</div>
+      </div>
+    `;
+  }
+}
+
+function statCard(icon,label,value){
+  return `<div class="card p-5"><div class="text-2xl mb-1">${icon}</div><div class="text-xl font-heading font-bold" style="color:var(--cherry-dark);">${value}</div><div class="text-xs opacity-60">${label}</div></div>`;
+}
+
+function ordersTable(orders, small){
+  return `<div class="scroll-x"><table class="data-table"><thead><tr><th>ID</th><th>Customer</th><th>City</th><th>Total</th><th>Status</th></tr></thead>
+  <tbody>${orders.map(o=>`<tr><td>${o.id}</td><td>${o.customer}</td><td>${o.city}</td><td>${fmt(o.total)}</td><td><span class="badge badge-approved">${o.status}</span></td></tr>`).join('') || `<tr><td colspan="5" class="text-center opacity-60 py-4">No orders yet.</td></tr>`}</tbody></table></div>`;
+}
+
+function openAddProductModal(){
+  openModal(`
+    <h3 class="font-heading font-bold text-xl mb-4" style="color:var(--cherry-dark);">Add New Product</h3>
+    <div class="space-y-3">
+      <div><label class="field-label">Product Name</label><input id="pName" class="input-field" placeholder="e.g. Wooden Puzzle Set"></div>
+      <div><label class="field-label">Category</label>
+        <select id="pCat" class="input-field">${DB.categories.filter(c=>c.active).map(c=>`<option value="${c.id}">${c.icon} ${c.name}</option>`).join('')}</select>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="field-label">Selling Price (₹)</label><input id="pPrice" type="number" class="input-field" placeholder="499"></div>
+        <div><label class="field-label">MRP (₹)</label><input id="pMrp" type="number" class="input-field" placeholder="699"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="field-label">Stock Qty</label><input id="pStock" type="number" class="input-field" placeholder="50"></div>
+        <div><label class="field-label">Icon (emoji)</label><input id="pIcon" class="input-field" placeholder="🧸" value="📦"></div>
+      </div>
+      <button onclick="addProduct()" class="btn-cherry w-full mt-2">Add Product</button>
+    </div>
+  `);
+}
+function addProduct(){
+  const name = $('#pName').value.trim();
+  const category = parseInt($('#pCat').value);
+  const price = parseFloat($('#pPrice').value);
+  const mrp = parseFloat($('#pMrp').value) || price;
+  const stock = parseInt($('#pStock').value) || 0;
+  const icon = $('#pIcon').value.trim() || '📦';
+  if(!name || !price){ showToast('⚠️ Please fill product name and price'); return; }
+  DB.products.push({id: uid('p'), name, category, price, mrp, stock, icon, retailerId: currentRetailerId, active:true});
+  saveDB(); closeModal(); showToast('✅ Product added!'); retailerDashSection();
+}
+function toggleProductActive(pid){
+  const p = DB.products.find(x=>x.id===pid); if(!p) return;
+  p.active = !p.active; saveDB(); retailerDashSection();
+}
+function deleteProduct(pid){
+  DB.products = DB.products.filter(x=>x.id!==pid); saveDB(); showToast('🗑️ Product deleted'); retailerDashSection();
+}
+function updateOrderStatus(oid, status){
+  const o = DB.orders.find(x=>x.id===oid); if(!o) return;
+  o.status = status; saveDB();
+}
+function updateDeliveryPerson(oid, val){
+  const o = DB.orders.find(x=>x.id===oid); if(!o) return;
+  o.deliveryPerson = val; saveDB();
+}
+function renewPlan(plan){
+  const r = DB.retailers.find(x=>x.id===currentRetailerId); if(!r) return;
+  r.plan = plan;
+  const expiry = new Date(); expiry.setMonth(expiry.getMonth() + (plan==='yearly'?12:1));
+  r.expiry = expiry.toISOString().slice(0,10);
+  saveDB(); showToast('💳 Payment Successful (Demo). Plan updated!'); retailerDashSection();
+}
+
+/* ==========================================================================
+   ADMIN PANEL  (/admin)  — role-based guarded
+=========================================================================== */
+function renderAdmin(){
+  const el = $('#adminContent');
+  isAdminAuthed = sessionStorage.getItem('d2c_admin_auth') === 'true';
+  if(!isAdminAuthed){ el.innerHTML = adminLoginHTML(); return; }
+  el.innerHTML = adminDashboardHTML();
+  adminNavRender();
+}
+
+function adminLoginHTML(){
+  return `
+  <div class="min-h-screen flex items-center justify-center px-4" style="background:linear-gradient(160deg,var(--cherry),var(--cherry-dark));">
+    <div class="card p-8 w-full max-w-sm fade-in">
+      <div class="text-center mb-5">
+        <div class="text-4xl mb-2">🔒</div>
+        <h2 class="font-heading font-bold text-xl" style="color:var(--cherry-dark);">D2C India — Admin Panel</h2>
+        <p class="text-xs opacity-60 mt-1">Secure, role-based access only.</p>
+      </div>
+      <div class="space-y-3">
+        <div><label class="field-label">Admin Email</label><input id="aEmail" class="input-field" placeholder="admin@d2cindia.com"></div>
+        <div><label class="field-label">Password</label><input id="aPass" type="password" class="input-field" placeholder="••••••••"></div>
+        <button onclick="doAdminLogin()" class="btn-cherry w-full mt-2">Login to Admin Panel</button>
+        <p class="text-xs opacity-50 text-center mt-3">Demo credentials: admin@d2cindia.com / Admin@123</p>
+        <a href="#/" class="block text-center text-xs underline mt-2" style="color:var(--cherry);">← Back to Website</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function doAdminLogin(){
+  const email = $('#aEmail').value.trim();
+  const pass = $('#aPass').value;
+  if(email===ADMIN_CREDENTIALS.email && pass===ADMIN_CREDENTIALS.password){
+    sessionStorage.setItem('d2c_admin_auth','true');
+    isAdminAuthed = true;
+    showToast('🔑 Admin login successful');
+    renderAdmin();
+  } else {
+    showToast('❌ Invalid admin credentials');
+  }
+}
+function adminLogout(){ sessionStorage.removeItem('d2c_admin_auth'); isAdminAuthed=false; renderAdmin(); }
+
+function adminDashboardHTML(){
+  const items = [
+    ['overview','📊','Overview'],['categories','🗂️','Categories'],['retailers','🏬','Retailers'],
+    ['products','📦','Products'],['orders','🧾','Orders'],['cities','📍','Cities'],
+  ];
+  return `
+  <div class="min-h-screen flex" style="background:var(--offwhite-dark);">
+    <button id="aSidebarToggle" onclick="document.getElementById('aSidebar').classList.toggle('open')" class="md:hidden fixed top-3 left-3 z-[95] btn-cherry px-3 py-2 text-sm">☰</button>
+    <aside id="aSidebar" class="dash-sidebar w-64 shrink-0 p-5 flex flex-col gap-1" style="background:var(--cherry-dark);">
+      <div class="flex items-center gap-2 mb-6">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg" style="background:var(--offwhite);">🛡️</div>
+        <div class="font-heading font-bold text-sm" style="color:var(--offwhite);">Owner Admin Panel</div>
+      </div>
+      ${items.map(i=>`<div class="sidebar-btn ${adminNav===i[0]?'active':''}" onclick="adminNav='${i[0]}'; adminNavRender(); document.getElementById('aSidebar').classList.remove('open');">${i[1]} ${i[2]}</div>`).join('')}
+      <div class="mt-auto pt-4 border-t" style="border-color:rgba(255,255,255,.15);">
+        <a href="#/" class="sidebar-btn">🏠 Customer Site</a>
+        <div class="sidebar-btn" onclick="adminLogout()">🚪 Logout</div>
+      </div>
+    </aside>
+    <main class="flex-1 p-5 md:p-8 overflow-x-hidden" id="adminMain"></main>
+  </div>`;
+}
+
+function adminNavRender(){
+  const dash = $('#adminContent');
+  if(dash && !dash.querySelector('#adminMain')) dash.innerHTML = adminDashboardHTML();
+  const main = $('#adminMain');
+  if(!main) return;
+
+  if(adminNav==='overview'){
+    const totalRevenue = DB.orders.reduce((a,o)=>a+o.total,0);
+    main.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-5" style="color:var(--offwhite);">Platform Overview</h2>
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+        ${statCard('🏬','Total Retailers', DB.retailers.length)}
+        ${statCard('✅','Approved Retailers', DB.retailers.filter(r=>r.status==='approved').length)}
+        ${statCard('📦','Total Products', DB.products.length)}
+        ${statCard('🧾','Total Orders', DB.orders.length)}
+        ${statCard('💰','Est. Revenue', fmt(totalRevenue))}
+        ${statCard('🗂️','Active Categories', DB.categories.filter(c=>c.active).length)}
+        ${statCard('📍','Cities Served', DB.cities.length)}
+        ${statCard('⏳','Pending Approvals', DB.retailers.filter(r=>r.status==='pending').length)}
+      </div>
+      <div class="card p-5 mt-6">
+        <h3 class="font-bold mb-3" style="color:var(--cherry-dark);">Recent Orders</h3>
+        ${ordersTable(DB.orders.slice(-6).reverse())}
+      </div>
+    `;
+  } else if(adminNav==='categories'){
+    main.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">Manage Categories</h2>
+      <div class="card p-5 mb-5">
+        <h3 class="font-bold mb-3" style="color:var(--cherry-dark);">+ Add New Category</h3>
+        <div class="grid sm:grid-cols-3 gap-3">
+          <input id="catName" class="input-field" placeholder="Category name">
+          <input id="catIcon" class="input-field" placeholder="Icon (emoji) e.g. 🎮" value="🏷️">
+          <button onclick="addCategory()" class="btn-cherry">Add Category</button>
+        </div>
+      </div>
+      <div class="card p-4 scroll-x">
+        <table class="data-table">
+          <thead><tr><th>Icon</th><th>Name</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+          ${DB.categories.map(c=>`
+            <tr>
+              <td class="text-2xl">${c.icon}</td>
+              <td><input class="input-field text-sm py-1" value="${c.name}" onchange="renameCategory(${c.id}, this.value)"></td>
+              <td>${c.active? '<span class="badge badge-approved">Active</span>' : '<span class="badge badge-suspended">Hidden</span>'}</td>
+              <td>
+                <button onclick="toggleCategory(${c.id})" class="text-xs underline mr-3">${c.active?'Hide':'Show'}</button>
+                <button onclick="deleteCategory(${c.id})" class="text-xs underline" style="color:#b91c1c;">Delete</button>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs opacity-60 mt-3" style="color:var(--offwhite);">Changes here instantly control what customers see as the 5 (or more/less) main categories on the homepage.</p>
+    `;
+  } else if(adminNav==='retailers'){
+    main.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">Manage Retailers</h2>
+      <div class="card p-4 scroll-x">
+        <table class="data-table">
+          <thead><tr><th>Shop</th><th>Owner</th><th>City</th><th>Plan</th><th>Status</th><th>Expiry</th><th>Actions</th></tr></thead>
+          <tbody>
+          ${DB.retailers.map(r=>`
+            <tr>
+              <td class="font-bold">${r.shopName}</td>
+              <td>${r.owner}<br><span class="text-xs opacity-60">${r.email}</span></td>
+              <td>${r.city}</td>
+              <td>${r.plan==='yearly'?'Yearly':'Monthly'}</td>
+              <td><span class="badge badge-${r.status}">${r.status}</span></td>
+              <td>${r.expiry}</td>
+              <td>
+                <button onclick="setRetailerStatus('${r.id}','approved')" class="text-xs underline mr-2" style="color:#166534;">Approve</button>
+                <button onclick="setRetailerStatus('${r.id}','rejected')" class="text-xs underline mr-2" style="color:#991b1b;">Reject</button>
+                <button onclick="setRetailerStatus('${r.id}','suspended')" class="text-xs underline" style="color:#374151;">Suspend</button>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if(adminNav==='products'){
+    main.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">All Products</h2>
+      <div class="card p-4 scroll-x">
+        <table class="data-table">
+          <thead><tr><th>Product</th><th>Retailer</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+          ${DB.products.map(p=>{
+            const r = DB.retailers.find(x=>x.id===p.retailerId);
+            const cat = DB.categories.find(c=>c.id===p.category);
+            return `<tr>
+              <td>${p.icon} ${p.name}</td>
+              <td>${r?r.shopName:'-'}</td>
+              <td>${cat?cat.name:'-'}</td>
+              <td>${fmt(p.price)}</td>
+              <td>${p.active?'<span class="badge badge-approved">Live</span>':'<span class="badge badge-suspended">Hidden</span>'}</td>
+              <td>
+                <button onclick="toggleProductActive('${p.id}'); adminNavRender();" class="text-xs underline mr-2">${p.active?'Hide':'Show'}</button>
+                <button onclick="deleteProduct('${p.id}'); adminNavRender();" class="text-xs underline" style="color:#b91c1c;">Delete</button>
+              </td>
+            </tr>`;
+          }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if(adminNav==='orders'){
+    main.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">All Orders</h2>
+      <div class="card p-4 scroll-x">
+        <table class="data-table">
+          <thead><tr><th>ID</th><th>Retailer</th><th>Customer</th><th>City</th><th>Total</th><th>Status</th><th>Delivery</th></tr></thead>
+          <tbody>
+          ${DB.orders.slice().reverse().map(o=>{
+            const r = DB.retailers.find(x=>x.id===o.retailerId);
+            return `<tr>
+              <td class="font-bold">${o.id}</td>
+              <td>${r?r.shopName:'-'}</td>
+              <td>${o.customer}</td>
+              <td>${o.city}</td>
+              <td>${fmt(o.total)}</td>
+              <td><span class="badge badge-approved">${o.status}</span></td>
+              <td class="text-xs">${o.deliveryPerson||'-'}</td>
+            </tr>`;
+          }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if(adminNav==='cities'){
+    main.innerHTML = `
+      <h2 class="font-heading font-bold text-2xl mb-4" style="color:var(--offwhite);">Serviceable Cities</h2>
+      <div class="card p-5 mb-5">
+        <div class="flex gap-3">
+          <input id="newCityInput" class="input-field" placeholder="Add new city e.g. Chandigarh">
+          <button onclick="addCity()" class="btn-cherry">Add</button>
+        </div>
+      </div>
+      <div class="card p-5">
+        <div class="flex flex-wrap gap-2">
+          ${DB.cities.map(c=>`<span class="badge" style="background:var(--offwhite-dark); color:var(--cherry-dark); display:flex; align-items:center; gap:6px; padding:6px 12px;">📍 ${c} <button onclick="removeCity('${c}')" style="color:#b91c1c; font-weight:bold;">&times;</button></span>`).join('')}
+        </div>
+      </div>
+    `;
+  }
+}
+
+function addCategory(){
+  const name = $('#catName').value.trim();
+  const icon = $('#catIcon').value.trim() || '🏷️';
+  if(!name){ showToast('⚠️ Enter category name'); return; }
+  const id = DB.categories.length ? Math.max(...DB.categories.map(c=>c.id))+1 : 1;
+  DB.categories.push({id, name, icon, active:true});
+  saveDB(); showToast('✅ Category added'); adminNavRender();
+}
+function renameCategory(id, name){
+  const c = DB.categories.find(x=>x.id===id); if(!c) return;
+  c.name = name; saveDB();
+}
+function toggleCategory(id){
+  const c = DB.categories.find(x=>x.id===id); if(!c) return;
+  c.active = !c.active; saveDB(); adminNavRender();
+}
+function deleteCategory(id){
+  DB.categories = DB.categories.filter(c=>c.id!==id); saveDB(); showToast('🗑️ Category removed'); adminNavRender();
+}
+function setRetailerStatus(rid, status){
+  const r = DB.retailers.find(x=>x.id===rid); if(!r) return;
+  r.status = status; saveDB(); showToast('✅ Retailer status updated: '+status); adminNavRender();
+}
+function addCity(){
+  const val = $('#newCityInput').value.trim();
+  if(!val) return;
+  if(!DB.cities.includes(val)) DB.cities.push(val);
+  saveDB(); showToast('✅ City added'); adminNavRender();
+}
+function removeCity(city){
+  DB.cities = DB.cities.filter(c=>c!==city); saveDB(); adminNavRender();
+}
+
+/* ---------------------- INIT ---------------------- */
+document.addEventListener('DOMContentLoaded', ()=>{ route(); });
 </script>
 </body>
 </html>

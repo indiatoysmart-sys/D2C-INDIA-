@@ -1,0 +1,398 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D2C INDIA — One Marketplace. One Community. One Database.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..900;1,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --cherry:#9B1C31;
+    --cherry-deep:#831628;
+    --cherry-soft:#B23A4F;
+    --cream:#F8F3E8;
+    --cream-dim:rgba(248,243,232,.62);
+    --cream-faint:rgba(248,243,232,.14);
+    --line:rgba(248,243,232,.16);
+  }
+  *{ -webkit-tap-highlight-color:transparent; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--cherry); color:var(--cream); font-family:'Instrument Sans',sans-serif; overflow-x:hidden; }
+  .serif{ font-family:'Fraunces',serif; }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  ::selection{ background:var(--cream); color:var(--cherry); }
+  .card{ background:rgba(248,243,232,.06); border:1px solid var(--line); }
+  .card-solid{ background:var(--cream); color:var(--cherry); }
+  .pill{ border:1px solid var(--line); }
+  .pill.active{ background:var(--cream); color:var(--cherry); }
+  .btn-cream{ background:var(--cream); color:var(--cherry); }
+  .btn-cream:hover{ transform:translateY(-2px); }
+  .btn-ghost{ border:1px solid var(--line); }
+  .btn-ghost:hover{ background:rgba(248,243,232,.08); }
+  input,select{ font-family:inherit; }
+  input[type=text], input[type=tel], select, textarea{ background:rgba(248,243,232,.07); border:1px solid var(--line); color:var(--cream); border-radius:14px; }
+  input::placeholder{ color:var(--cream-dim); }
+  input:focus,select:focus{ outline:2px solid var(--cream); outline-offset:1px; }
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--cherry-deep); }
+  ::-webkit-scrollbar-thumb{ background:rgba(248,243,232,.25); border-radius:8px; }
+  .grain::before{ content:""; position:fixed; inset:0; pointer-events:none; opacity:.35; z-index:1;
+    background-image:radial-gradient(rgba(248,243,232,.06) 1px, transparent 1px); background-size:5px; }
+  .drawer{ transform:translateX(105%); transition:transform .45s cubic-bezier(.2,.9,.25,1); }
+  .drawer.open{ transform:translateX(0); }
+  .chip{ border:1px solid var(--line); }
+  .toast{ animation:pop .35s cubic-bezier(.2,.9,.3,1.2); }
+  @keyframes pop{ from{ transform:translateY(14px) scale(.95); opacity:0; } }
+  .marquee{ font-feature-settings:"ss01"; }
+  .serif em{ font-style:italic; }
+  a:focus-visible,button:focus-visible{ outline:2px solid var(--cream); outline-offset:2px; border-radius:6px; }
+</style>
+</head>
+<body class="grain antialiased">
+<div class="relative z-10">
+
+<!-- Announcement -->
+<div class="mono text-[11px] tracking-[.3em] uppercase text-center px-4 py-3 border-b border-[var(--line)]">
+  One platform · One backend · One shared database — Every connected surface, live
+</div>
+
+<!-- Header -->
+<header class="sticky top-0 backdrop-blur-xl bg-[rgba(155,28,49,.88)] border-b border-[var(--line)] z-40">
+  <div class="max-w-6xl mx-auto flex items-center gap-3 px-4 py-4">
+    <a href="#" aria-label="D2C India home" class="serif text-lg sm:text-xl leading-none tracking-tight shrink-0">D2C<span class="italic font-light">·</span>INDIA</a>
+
+    <!-- City selector -->
+    <div class="relative flex-1 min-w-0">
+      <div role="group" aria-label="Select your city" id="cityGroup" class="flex items-center gap-2 rounded-full border border-[var(--line)] bg-[rgba(248,243,232,.06)] px-3 py-2 overflow-x-auto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M12 21s-7-5.1-7-11a7 7 0 1 1 14 0c0 5.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        <span class="text-sm whitespace-nowrap text-[var(--cream-dim)] hidden sm:inline">Showing to</span>
+        <button id="cityBtn" aria-haspopup="listbox" aria-expanded="false" class="text-sm font-semibold tracking-tight whitespace-nowrap underline decoration-[6px] underline-offset-4 decoration-[var(--cream-faint)]">
+          <span id="cityLabel">New Delhi · 110001 metro catchment</span>
+        </button>
+      </div>
+      <ul id="cityMenu" role="listbox" aria-label="Cities" class="hidden absolute left-0 right-0 sm:right-auto sm:min-w-[340px] top-full mt-2 card rounded-3xl p-2 shadow-2xl z-50"></ul>
+    </div>
+
+    <!-- Search -->
+    <form id="searchForm" onsubmit="return false" role="search" aria-label="Search products" class="flex-[1.4] min-w-0">
+      <div class="flex items-center rounded-full border border-[var(--line)] bg-[rgba(248,243,232,.07)] px-2 py-2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5 ml-2 shrink-0" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="searchInput" type="search" aria-label="Search products" placeholder="Search the shared catalog…" class="w-full rounded-none border-0 bg-transparent px-2 py-1 text-sm focus:outline-none">
+      </div>
+    </form>
+
+    <!-- Account / Cart -->
+    <div class="flex items-center gap-2 shrink-0">
+      <a href="#auth" aria-label="Account" class="hidden sm:grid w-11 h-11 place-items-center rounded-full border border-[var(--line)]">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.4-3.2 4-4.4 7-4.4s5.6 1.2 7 4.4"/></svg>
+      </a>
+      <button id="cartOpen" aria-label="Open cart" class="grid w-11 h-11 place-items-center rounded-full bg-[var(--cream)] text-[var(--cherry)] btn-cream shadow-xl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5" aria-hidden="true"><path d="M4 7h16l-1.3 12a2 2 0 0 1-2 1.8H7.3a2 2 0 0 1-2-1.8L4 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+        <span id="cartCount" class="mono absolute -top-1 -right-1 text-[10px] grid place-items-center min-w-[20px] h-5 rounded-full bg-[var(--cherry-deep)] text-[var(--cream)] border border-[var(--line)] px-1">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-8 sm:py-12 space-y-10">
+
+  <!-- Hero -->
+  <section aria-label="Welcome" class="pt-2">
+    <h1 class="serif text-[clamp(2.3rem,6vw,4.6rem)] leading-[.95] tracking-[-0.04em]">
+      The marketplace, <em>reimagined — in one shared database.</em>
+    </h1>
+    <p class="max-w-xl text-[var(--cream-dim)] py-4">Select a city once. Browse every active, subscription-verified retailer serving that catchment. Orders, tracking, onboarding and administration all speak to the <strong class="text-[var(--cream)]">same backend</strong> — nothing disconnected.</p>
+    <div id="cityBanner" class="flex flex-wrap gap-3" role="status"></div>
+  </section>
+
+  <!-- Categories + filters -->
+  <section aria-label="Categories and filters">
+    <div class="flex gap-3 overflow-x-auto pb-4 -mx-4 px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" id="catRow"></div>
+    <div class="flex flex-wrap gap-3 pt-2">
+      <button class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono" data-filter="all">Any stock · In active city</button>
+      <button class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono" data-filter="low">Low stock &lt; 8</button>
+      <button class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono" data-filter="deal">Deals under ₹1,500</button>
+      <a href="#retail" class="chip rounded-full px-4 py-2 text-xs uppercase tracking-[.2em] mono grid place-items-center">Custom category builder ↓</a>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section aria-label="Products">
+    <div class="flex items-end justify-between gap-4 pb-5">
+      <h2 class="serif text-2xl sm:text-3xl tracking-[-0.03em]">Live catalog — filtered by your city.</h2>
+      <span class="mono text-xs uppercase tracking-[.2em] text-[var(--cream-dim)] hidden sm:block" id="resultCount"></span>
+    </div>
+    <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+    <p id="emptyState" class="hidden text-center py-8 text-[var(--cream-dim)]">No live results in this catchment — try another city.</p>
+  </section>
+
+  <!-- Product detail -->
+  <section aria-label="Product detail" class="card rounded-[28px] p-5 sm:p-8 grid sm:grid-cols-2 gap-6 items-start" id="productDetail">
+    <div class="rounded-[22px] overflow-hidden relative min-h-[320px] grid place-items-center border border-[var(--line)]" style="background:linear-gradient(160deg, rgba(248,243,232,.16), rgba(248,243,232,.03))">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#F8F3E8" stroke-width="1" class="w-40 h-40 opacity-80" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/><path d="M12 22V12M3 7l9 5 9-5"/></svg>
+      <span class="mono absolute top-4 left-4 text-[11px] uppercase tracking-[.3em] bg-[rgba(155,28,49,.7)] backdrop-blur px-3 py-1 rounded-full border border-[var(--line)]">Shared DB · Row #live</span>
+    </div>
+    <div>
+      <p class="mono text-xs uppercase tracking-[.3em] text-[var(--cream-dim)]">Featured · Subscription-verified · Linked Retailer #R-2041</p>
+      <h3 class="serif text-3xl sm:text-4xl tracking-[-0.03em] leading-[.95] pt-2">Papier <em>Star</em> Desk Organiser, Set of 5.</h3>
+      <p class="pt-3 text-sm text-[var(--cream-dim)] leading-7">Archival ink, FSC stock, matte cream liner. Stock is a single row in the shared database — it decrements platform-wide, never per cart.</p>
+      <dl class="grid grid-cols-3 gap-3 py-6">
+        <div class="rounded-2xl border border-[var(--line)] p-4"><dt class="mono text-[10px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Price</dt><dd class="serif text-2xl">₹1,290</dd></div>
+        <div class="rounded-2xl border border-[var(--line)] p-4"><dt class="mono text-[10px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Stock</dt><dd class="serif text-2xl">24 pcs</dd></div>
+        <div class="rounded-2xl border border-[var(--line)] p-4"><dt class="mono text-[10px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Catchment</dt><dd class="serif text-lg leading-6">Delhi + 40</dd></div>
+      </dl>
+      <div class="flex flex-wrap gap-3">
+        <button class="btn-cream rounded-full px-7 py-4 text-sm font-semibold" onclick="addToCart('Papier Star',1290)">Add to cart</button>
+        <button class="btn-ghost rounded-full px-7 py-4 text-sm" onclick="buyNow()">Buy Now →</button>
+        <a href="#checkout" class="btn-ghost rounded-full px-7 py-4 text-sm grid place-items-center">Go to secure checkout</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auth + checkout flow -->
+  <section id="auth" aria-label="Auth and checkout" class="grid lg:grid-cols-2 gap-4">
+    <div class="card rounded-[28px] p-6 sm:p-8">
+      <h2 class="serif text-2xl tracking-[-0.03em]">Login / Signup — with 2FA + audit log.</h2>
+      <div class="grid sm:grid-cols-2 gap-3 py-6">
+        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">Email</span><input type="email" value=" Ananya.Rao@example.in " aria-label="Email" class="w-full px-4 py-4 mt-2"></label>
+        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">Password · 2FA seed ready</span><input type="password" value="••••••••" aria-label="Password" class="w-full px-4 py-4 mt-2"></label>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button class="btn-cream rounded-full px-6 py-4 text-sm font-semibold" onclick="toast('2FA TOTP verified · session issued · audit event #A-9912 written')">Continue · OTP 6-digit</button>
+        <button class="btn-ghost rounded-full px-6 py-4 text-sm" onclick="toast('Guest checkout preserved — shared session · role=customer')">Continue as guest</button>
+      </div>
+      <p class="mono text-[11px] uppercase tracking-[.2em] text-[var(--cream-dim)] pt-5">Protected API · RBAC · Input validation · TLS 1.3 · Auth event ref 9c2f…e1a9</p>
+    </div>
+
+    <div id="checkout" class="card rounded-[28px] p-6 sm:p-8">
+      <h2 class="serif text-2xl tracking-[-0.03em]">Delivery address — PIN only here, never in browse.</h2>
+      <div class="grid sm:grid-cols-2 gap-3 py-6">
+        <label class="block sm:col-span-2"><span class="mono text-[10px] uppercase tracking-[.25em]">Full address · Ananya Rao, House 4, Lodha Greens</span><input type="text" value="42, Sector 14, Ashoka Mehra-Nagar" aria-label="Delivery address" class="w-full px-4 py-4 mt-2"></label>
+        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">City</span><select aria-label="Delivery city"><option>New Delhi</option><option>Mumbai</option><option>Bengaluru</option></select></label>
+        <label class="block"><span class="mono text-[10px] uppercase tracking-[.25em]">PIN code · required at checkout</span><input type="text" inputmode="numeric" maxlength="6" value="110001" aria-label="PIN code" class="w-full px-4 py-4 mt-2 mono text-center tracking-[.3em]"></label>
+      </div>
+      <div class="flex items-center justify-between gap-3 rounded-[20px] bg-[var(--cream)] text-[var(--cherry)] p-4">
+        <div><h3 class="serif text-lg leading-6">Order review · 2 items · shared cart</h3><p class="text-sm">Papier Star ₹1,290 + Merino Gift Wrap ₹240</p></div>
+        <div class="text-right"><p class="mono text-[10px] uppercase tracking-[.2em]">Total incl. GST</p><p class="serif text-3xl">₹1,530</p></div>
+      </div>
+      <button class="btn-cream w-full rounded-full py-5 text-sm font-semibold mt-4" onclick="toast('Order #D2C-55218 placed · multi-retailer split into 2 sub-orders · rider assigned publicly')">Place order · Track after placement</button>
+      <a href="#tracking" class="block text-center mono text-xs uppercase tracking-[.25em] pt-4 text-[var(--cream-dim)]">Already ordered? Track #D2C-55218 →</a>
+    </div>
+  </section>
+
+  <!-- Tracking + orders -->
+  <section id="tracking" aria-label="Order tracking" class="card rounded-[28px] p-6 sm:p-8">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <h2 class="serif text-2xl tracking-[-0.03em]">Order #D2C-55218 — live status, rider visible to customer only.</h2>
+      <div class="mono text-xs uppercase tracking-[.2em]">Pipeline: Confirmed → Sub-order A · Retailer R-2041 · Preparing → Rider dispatched → Delivered</div>
+    </div>
+    <div class="grid sm:grid-cols-3 pt-6" role="list" aria-label="Courier tracking">
+      <article class="rounded-3xl border-y sm:border border-[var(--line)] p-5" role="listitem"><h3 class="mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Rider · public view</h3><p class="serif text-xl pt-2">Arjun M. · +91 98200 44110</p><p class="text-sm pt-1 text-[var(--cream-dim)]">Contact shown at dispatch · retailer cannot edit rider data.</p></article>
+      <article class="rounded-3xl border-y sm:border border-[var(--line)] p-5" role="listitem"><h3 class="mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">Sub-order · customer-facing</h3><p class="serif text-xl pt-2">A · ₹1,290 · R-2041</p><p class="text-sm pt-1 text-[var(--cream-dim)]">Multi-retailer order stays one customer order; internals isolated.</p></article>
+      <article class="rounded-3xl border-y sm:border border-[var(--line)] p-5" role="listitem"><h3 class="mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">History · shared DB</h3><p class="serif text-xl pt-2">6 orders · ₹14,208 lifetime</p><p class="text-sm pt-1 text-[var(--cream-dim)]">Order history is one ledger across every connected surface.</p></article>
+    </div>
+  </section>
+
+  <!-- Retailer onboarding -->
+  <section id="retail" aria-label="Retailer onboarding" class="rounded-[32px] border border-[var(--line)] overflow-hidden">
+    <div class="bg-[var(--cream)] text-[var(--cherry)] p-6 sm:p-10">
+      <p class="mono text-xs uppercase tracking-[.3em]">Retailer onboarding · shared platform</p>
+      <h2 class="serif text-3xl sm:text-5xl tracking-[-0.04em] leading-[.95]">Sell Your Product on <em>D2C India.</em></h2>
+      <div class="grid md:grid-cols-3 gap-4 pt-8">
+        <article class="rounded-3xl border border-[rgba(155,28,49,.2)] p-6"><h3 class="serif text-xl pb-3">Benefits</h3><ul class="text-sm leading-7"><li>Whole catchment, one checkout</li><li>Shared inventory + order routing</li><li>Rider dispatch handled platform-side</li><li>No per-channel PIN juggling</li></ul></article>
+        <article class="rounded-3xl border border-[rgba(155,28,49,.2)] p-6"><h3 class="serif text-xl pb-3">Product management</h3><ul class="text-sm leading-7"><li>Shop · Products · Images · Descriptions</li><li>Prices · Stock · custom categories</li><li>Serviceable cities + areas, per retailer</li><li>Order status only — never D2C revenue</li></ul></article>
+        <article class="rounded-3xl bg-[var(--cherry)] text-[var(--cream)] p-6">
+          <h3 class="serif text-xl pb-1">Subscriptions · dates stored exactly</h3>
+          <button class="w-full rounded-full border border-[rgba(248,243,232,.3)] py-5 text-sm pt-5" onclick="toast('Plan held: Monthly · active → 2026-02-14 23:59 IST · auto-renew off')">₹2,000 / month<br><span class="mono text-[11px] uppercase tracking-[.2em]">Start 01 Aug 2025 → Expires 01 Sep 2025 · shared DB</span></button>
+          <button class="w-full rounded-full bg-[var(--cream)] text-[var(--cherry)] py-5 text-sm font-semibold pt-4" onclick="toast('Yearly held: ₹20,000 · Start 01 Jan 2026 → Expires 31 Dec 2026 · 12 mo')">₹20,000 / year<br><span class="mono text-[11px] uppercase tracking-[.2em]">Start 01 Jan 2026 → Expires 31 Dec 2026 · auto-renew on</span></button>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-4 pt-8">
+        <div class="rounded-3xl border border-[rgba(155,28,49,.2)] p-6"><h3 class="mono text-[11px] uppercase tracking-[.25em]">Requirements & compliance</h3><p class="text-sm pt-3 leading-7">GSTIN, product audit scan, 2FA, terms, serviceable-city matrix, manual partner booking acknowledgment — validated server-side before first publish.</p></div>
+        <div class="rounded-3xl bg-[var(--cherry)] text-[var(--cream)] p-6"><h3 class="mono text-[11px] uppercase tracking-[.25em]">Expiration behaviour · enforced everywhere</h3><p class="text-sm pt-3 leading-7">On expiry, retailer products auto-unpublish from the customer site and become inactive, but login + product read-only access remains. Retailers see their own account, products, images, descriptions, prices, stock, categories, cities/areas, orders and subscription only — never D2C revenue, costs, or other retailers’ data.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Retailer portal preview -->
+  <section aria-label="Retailer portal preview" class="card rounded-[28px] p-6 sm:p-8">
+    <div class="flex flex-wrap items-end justify-between gap-4 pb-6">
+      <h2 class="serif text-2xl sm:text-3xl tracking-[-0.03em]">Retailer Portal — R·2041 “Papier Star” (live preview, scoped).</h2>
+      <span class="mono text-xs uppercase tracking-[.2em]">Subscription: active · ends 01 Sep 2025 23:59 IST</span>
+    </div>
+    <div class="overflow-x-auto rounded-3xl border border-[var(--line)]">
+      <table class="w-full min-w-[760px]" aria-label="Retailer products">
+        <thead><tr class="mono text-[10px] uppercase tracking-[.2em] text-[var(--cream-dim)]"><th class="text-left px-5 py-4">Product · linked to Retailer #R-2041</th><th class="text-left px-5 py-4">Price</th><th class="text-left px-5 py-4">Stock</th><th class="text-left px-5 py-4">Categories / custom</th><th class="text-left px-5 py-4">Action</th></tr></thead>
+        <tbody class="divide-y divide-[var(--line)]" id="retailRows"></tbody>
+      </table>
+    </div>
+    <div class="flex flex-wrap gap-3 pt-6">
+      <a href="#" class="btn-cream rounded-full px-6 py-4 text-sm" onclick="event.preventDefault();toast('Sub-orders only: R·2041 sees own orders #SO-881 / #SO-902 · cannot view D2C split revenue')">Manage own Orders · sub-scoped</a>
+      <a href="#" class="btn-ghost rounded-full px-6 py-4 text-sm" onclick="event.preventDefault();toast('City matrix editor open · Delhi + 40 catchments · drag to gate visibility')">Serviceable cities/areas</a>
+      <a href="#" class="btn-ghost rounded-full px-6 py-4 text-sm" onclick="event.preventDefault();toast('Custom category builder: admin rule applied · retailer suggests, owner approves without deploy')">Create custom category</a>
+    </div>
+  </section>
+
+  <!-- Admin preview -->
+  <section aria-label="Admin panel preview" class="rounded-[28px] border border-dashed border-[var(--line)] p-6 sm:p-8 flex flex-wrap items-center justify-between gap-5">
+    <div>
+      <h2 class="serif text-2xl tracking-[-0.03em]">/admin — isolated, Owner-only, masked.</h2>
+      <p class="text-sm text-[var(--cream-dim)] max-w-md pt-2">2FA + Owner role + audit trail + backups. Sensitive info masked. Category kit: <span class="mono text-xs uppercase tracking-[.15em]">rename · replace · add · remove — Toys / Stationery / Gifts / Clothes / Electronics — no code changes</span>. Manual booking partners + D2C staff entry. Zero admin data leaks to customers or retailers.</p>
+    </div>
+    <a href="#" aria-label="Open isolated admin" onclick="event.preventDefault();toast('Admin gate: Owner login · TOTP · RBAC=owner only · masked view · audit event written')" class="btn-cream rounded-full px-8 py-5 text-sm font-semibold">Enter /admin · Owner login only</a>
+  </section>
+
+  <!-- Delivery ops strip -->
+  <section aria-label="Delivery operations" class="card rounded-[28px] p-6 sm:p-8">
+    <h2 class="serif text-xl sm:text-2xl">Delivery ops · manual by design.</h2>
+    <div class="grid sm:grid-cols-2 gap-4 pt-5">
+      <button class="btn-ghost rounded-3xl p-6 text-left" onclick="toast('Partner booking queue: manual · owner/authorized staff · partner + slot + zone')"><h3 class="mono text-[11px] uppercase tracking-[.25em]">Owner / authorized staff</h3><p class="pt-2 text-sm">Manually book delivery partners. No delivery API in v1 — kept honest and observable.</p></button>
+      <button class="btn-ghost rounded-3xl p-6 text-left" onclick="toast('D2C Staff: enter rider + delivery details · retailers have zero edit rights on rider info')"><h3 class="mono text-[11px] uppercase tracking-[.25em]">D2C Staff</h3><p class="pt-2 text-sm">Enter rider contact and delivery details. Customers see contact at dispatch; retailers cannot edit.</p></button>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-[var(--line)] px-4 py-6 text-center mono text-[11px] uppercase tracking-[.25em] text-[var(--cream-dim)]">D2C INDIA · Backup nightly · 2FA everywhere · Audit ref live · No PIN in browse, ever.</footer>
+</div>
+
+<!-- Corner sell button -->
+<a href="#retail" aria-label="Sell Your Product on D2C India" class="fixed bottom-4 right-4 z-50 rounded-full bg-[var(--cream)] text-[var(--cherry)] px-5 py-4 text-sm font-semibold shadow-2xl btn-cream leading-tight text-center">Sell Your Product<br class="hidden"> on D2C India →</a>
+
+<!-- Cart drawer -->
+<div id="scrim" class="hidden fixed inset-0 bg-[rgba(60,8,17,.6)] backdrop-blur-sm z-40"></div>
+<aside id="cartDrawer" class="drawer fixed right-0 top-0 h-full w-[min(420px,100vw)] bg-[var(--cherry-deep)] border-l border-[var(--line)] z-50 p-6 overflow-y-auto" aria-label="Cart">
+  <div class="flex items-center justify-between pb-6 border-b border-[var(--line)]">
+    <h2 class="serif text-2xl">Shared cart</h2>
+    <button aria-label="Close cart" onclick="toggleCart(false)" class="w-10 h-10 grid place-items-center rounded-full border border-[var(--line)]">✕</button>
+  </div>
+  <div id="cartItems" class="space-y-3 py-6"></div>
+  <button class="btn-cream w-full rounded-full py-5 text-sm font-semibold" onclick="toggleCart(false);toast('Checkout opens with PIN only here · shared backend session intact')">Continue to delivery · PIN required</button>
+</aside>
+
+<!-- Toast -->
+<div id="toast" class="hidden fixed left-1/2 -translate-x-1/2 bottom-6 z-[60] rounded-full bg-[var(--cream)] text-[var(--cherry)] px-6 py-4 text-sm font-semibold shadow-2xl toast max-w-[92vw] text-center" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  const cream='#F8F3E8';
+  // Data: shared catalog (scoped rows)
+  const products=[
+    {name:'Papier Star Desk Set',cat:'Stationery',price:1290,stock:24,city:true},
+    {name:'Monsoon Ribbon Notebook',cat:'Stationery',price:420,stock:6,city:true},
+    {name:'Sehra Toys · Wooden Ox',cat:'Toys',price:890,stock:18,city:true},
+    {name:'Cloudline Plush Stack Ring',cat:'Gifts',price:1490,stock:9,city:true},
+    {name:'Cherry Rose Silk Slip',cat:'Clothes',price:2190,stock:12,city:true},
+    {name:'Aria Buds Mini',cat:'Electronics',price:2490,stock:5,city:true},
+    {name:'Marble Counter Gift Box',cat:'Gifts',price:980,stock:15,city:true},
+    {name:'Letterpress Card, Set of 10',cat:'Stationery',price:340,stock:40,city:true},
+    {name:'Wooden Bazaar Stacker',cat:'Toys',price:640,stock:22,city:true},
+    {name:'Linen Everyday Tote',cat:'Clothes',price:1150,stock:16,city:true},
+    {name:'Magnetic desk Speaker One',cat:'Electronics',price:3290,stock:7,city:true}
+  ];
+  const fmt=n=>'₹'+n.toLocaleString('en-IN');
+
+  // Cities (city first only; PIN lives at checkout)
+  const cities=[
+    {name:'New Delhi', detail:'110001 metro catchment'},
+    {name:'Mumbai', detail:'400050 + 42 zones'},
+    {name:'Bengaluru', detail:'560001 + 31 zones'},
+    {name:'Pune', detail:'411001 + 18 zones'},
+    {name:'Jaipur', detail:'302001 + 12 zones'}
+  ];
+  let city=cities[0]; let cat='All'; let cart=[];
+
+  // City menu
+  const menu=document.getElementById('cityMenu');
+  const btn=document.getElementById('cityBtn');
+  function renderCities(){
+    menu.innerHTML=cities.map((c,i)=>`<li><button role="option" aria-selected="${c===city}" class="w-full text-left rounded-2xl px-4 py-4 border ${c===city?'border-[#F8F3E8] bg-[rgba(248,243,232,.1)]':'border-[rgba(248,243,232,.12)]'}" onclick="selectCity(${i})"><span class="serif text-lg tracking-tight">${c.name}</span><span class="block mono text-[11px] uppercase tracking-[.2em] text-[rgba(248,243,232,.6)] pt-1">${c.detail} · active DB scope</span></button></li>`).join('');
+  }
+  window.selectCity=function(i){
+    city=cities[i]; renderCities();
+    document.getElementById('cityLabel').textContent=city.name+' · '+city.detail;
+    menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false');
+    document.getElementById('cityBanner').innerHTML=`<span class="mono text-xs uppercase tracking-[.25em] rounded-full border border-[rgba(248,243,232,.2)] px-4 py-3">Scope locked: ${city.name} only · PIN hidden from browse · shared DB view v${Math.floor(Math.random()*8)+2}</span>`;
+    renderProducts(); toast('City scope switched to '+city.name+' · catalog rows re-filtered · no PIN shown');
+  };
+  renderCities();
+  btn.addEventListener('click',e=>{ e.stopPropagation(); const open=menu.classList.toggle('hidden'); btn.setAttribute('aria-expanded', String(!open)); });
+  document.addEventListener('click',e=>{ if(!menu.classList.contains('hidden') && !e.target.closest('#cityGroup') && !e.target.closest('#cityMenu')) menu.classList.add('hidden'); });
+  document.getElementById('cityBanner').innerHTML=`<span class="mono text-xs uppercase tracking-[.25em] rounded-full border border-[rgba(248,243,232,.2)] px-4 py-3">Scope locked: New Delhi only · PIN hidden from browse · shared DB live</span>`;
+
+  // Categories — initial kit (admin-managed, no code changes in reality)
+  const cats=['All','Toys','Stationery','Gifts','Clothes','Electronics'];
+  document.getElementById('catRow').innerHTML=cats.map((c,i)=>`<button class="pill ${i===0?'active':''} rounded-full px-5 py-3 text-sm whitespace-nowrap" data-cat="${c}" onclick="setCat('${c}',this)">${c}</button>`).join('');
+  window.setCat=function(c,el){
+    cat=c; document.querySelectorAll('#catRow .pill').forEach(b=>b.classList.remove('active')); el.classList.add('active'); renderProducts();
+  };
+
+  // Filters
+  document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('chip')||0);
+    renderProducts(b.dataset.filter==='low'?'low':b.dataset.filter==='deal'?'deal':'all');
+  }));
+
+  function renderProducts(mode){
+    mode=mode||'all';
+    let list=products.filter(p=>p.city && (cat==='All'||p.cat===cat));
+    if(mode==='low') list=list.filter(p=>p.stock<8);
+    if(mode==='deal') list=list.filter(p=>p.price<1500);
+    const q=(document.getElementById('searchInput').value||'').trim().toLowerCase();
+    if(q) list=list.filter(p=>p.name.toLowerCase().includes(q));
+    document.getElementById('resultCount').textContent=list.length+' rows · '+city.name+' scope';
+    document.getElementById('productGrid').innerHTML=list.map(p=>`
+      <button aria-label="View ${p.name}" onclick="window.viewProduct('${p.name}')" class="card group rounded-[24px] p-4 text-left transition-transform hover:-translate-y-2 focus-visible:outline-none flex flex-col gap-4">
+        <div class="rounded-[16px] min-h-[130px] grid place-items-center border border-[rgba(248,243,232,.12)]" style="background:linear-gradient(150deg, rgba(248,243,232,.16), rgba(248,243,232,.03))">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F8F3E8" stroke-width="1.1" class="w-14 h-14 opacity-70 group-hover:scale-105 transition-transform" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15c1.5-4 5-4 6 0"/></svg>
+        </div>
+        <div class="flex flex-col gap-1 grow">
+          <span class="mono text-[10px] uppercase tracking-[.25em] text-[rgba(248,243,232,.6)]">${p.cat} · R-2041</span>
+          <h3 class="serif text-lg leading-6 tracking-[-0.02em]">${p.name}</h3>
+          <p class="serif text-2xl pt-1">${fmt(p.price)}</p>
+          <span class="mono text-[11px] uppercase tracking-[.2em] pt-2 ${p.stock<8?'':'text-[rgba(248,243,232,.55)]'}">${p.stock<8?'Low stock · '+p.stock+' left':'In stock · '+p.stock}</span>
+        </div>
+        <span class="btn-cream rounded-full px-4 py-3 text-center text-sm font-semibold" onclick="event.stopPropagation();addToCart('${p.name}',${p.price})">Add · Buy</span>
+      </button>`).join('');
+    document.getElementById('emptyState').classList.toggle('hidden', list.length>0);
+  }
+  window.viewProduct=function(name){ document.getElementById('productDetail').scrollIntoView({behavior:'smooth',block:'center'}); toast('Loaded '+name+' · product row + retailer link resolved'); };
+  document.getElementById('searchInput').addEventListener('input',e=>renderProducts());
+  renderProducts();
+
+  // Cart
+  window.addToCart=function(name,price){ cart.push({name,price}); document.getElementById('cartCount').textContent=cart.length; renderCart(); toast(name+' added · shared cart row written'); };
+  window.buyNow=function(){ addToCart('Papier Star',1290); document.getElementById('checkout').scrollIntoView({behavior:'smooth'}); };
+  function renderCart(){
+    const el=document.getElementById('cartItems');
+    el.innerHTML = cart.length ? cart.map((i,x)=>`<div class="flex items-center justify-between gap-4 rounded-3xl border border-[rgba(248,243,232,.14)] p-4"><div><h3 class="serif text-lg">${i.name}</h3><p class="mono text-xs uppercase tracking-[.2em] opacity-60">Linked R-2041 · sub-order ready</p></div><div class="flex items-center gap-4"><span class="serif text-xl">${fmt(i.price)}</span><button aria-label="Remove ${i.name}" class="w-8 h-8 rounded-full border border-[rgba(248,243,232,.2)]" onclick="cart.splice(${x},1);renderCart();document.getElementById('cartCount').textContent=cart.length">✕</button></div></div>`).join('')
+    : '<p class="text-sm opacity-60 py-8 text-center">Your shared cart is empty. Add from the catalog in your selected city.</p>';
+  }
+  renderCart();
+  function toggleCart(open){ document.getElementById('cartDrawer').classList.toggle('open',open); document.getElementById('scrim').classList.toggle('hidden',!open); }
+  document.getElementById('cartOpen').addEventListener('click',()=>toggleCart(true));
+  document.getElementById('scrim').addEventListener('click',()=>toggleCart(false));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') toggleCart(false); });
+
+  // Retail rows (scoped)
+  const retail=[
+    ['Papier Star Desk Organiser',1290,24,'Stationery · custom: “Desk Rituals”'],
+    ['Monsoon Ribbon Notebook',420,6,'Stationery'],
+    ['Marble Counter Gift Box',980,15,'Gifts · custom: “Wedding Edit”'],
+    ['Cherry Rose Silk Slip',2190,12,'Clothes']
+  ];
+  document.getElementById('retailRows').innerHTML=retail.map(r=>`<tr><td class="px-5 py-6 serif text-lg">${r[0]}<span class="mono block text-[10px] uppercase tracking-[.2em] opacity-50">Product_ID ▸ R-2041 only</span></td><td class="px-5 py-6">${fmt(r[1])}</td><td class="px-5 py-6">${r[2]} pcs</td><td class="px-5 py-6 text-sm">${r[3]}</td><td class="px-5 py-6"><button class="btn-ghost rounded-full px-5 py-3 text-xs" onclick="toast('Scoped action · retailer R-2041 cannot see revenue, costs or other retailers')">Update status ▸</button></td></tr>`).join('');
+
+  // Toast
+  let toastT;
+  window.toast=function(msg){
+    const t=document.getElementById('toast'); t.textContent=msg; t.classList.remove('hidden');
+    clearTimeout(toastT); toastT=setTimeout(()=>t.classList.add('hidden'),3200);
+  };
+})();
+</script>
+</body>
+</html>
